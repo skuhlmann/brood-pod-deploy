@@ -153,7 +153,7 @@ function version4(parameters: Version4Parameters) {
       // address = undefined
       await provider.disconnect()
       provider.close?.()
-      await signOut()
+      // await signOut()
     },
     async getAccounts() {
       const provider = await this.getProvider()

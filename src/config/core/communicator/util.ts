@@ -10,7 +10,7 @@ export function openPopup(url: URL): Window {
   const top = (window.innerHeight - POPUP_HEIGHT) / 2 + window.screenY;
 
   const popup = window.open(
-    url,
+    `${url}?from=${window.location.href}`,
     'Alias Wallet',
     `width=${POPUP_WIDTH}, height=${POPUP_HEIGHT}, left=${left}, top=${top}`
   );

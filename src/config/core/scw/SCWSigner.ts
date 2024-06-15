@@ -116,7 +116,7 @@ export class SCWSigner implements Signer {
     this.stateManager.clear();
     const session = await getSession()
     if (session) {
-      await signOut()
+      await signOut({redirect: false, callbackUrl: '/'})
     }
     // await this.keyManager.clear();
   }

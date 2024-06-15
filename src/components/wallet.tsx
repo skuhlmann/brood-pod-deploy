@@ -2,19 +2,21 @@
 
 import { useAccount, useConnect, useDisconnect, useSendTransaction } from "wagmi";
 import { Button } from "./ui/button";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { parseEther } from "viem";
 
 export function Wallet({ address }: { address: string }) {
   const { address: connectedAddress, isConnected } = useAccount()
   const { connect, connectors } = useConnect()
   const { disconnect } = useDisconnect()
+  const [connected, setConnected] = useState(false)
 
   const { sendTransaction, isPending, isSuccess, data: hash, isError } = useSendTransaction()
 
   useEffect(() => {
-    if (address && !connectedAddress && !isConnected) {
+    if (address && !connectedAddress && !isConnected && !connected) {
       connect({ connector: connectors[0] })
+      setConnected(true)
     }
     if (isSuccess) {
       console.log("Transaction sent with hash:", hash)
@@ -22,7 +24,7 @@ export function Wallet({ address }: { address: string }) {
     if (isError) {
       console.error("Error sending transaction:", hash)
     }
-  }, [isSuccess, hash, isError, address, connectedAddress, isConnected, connect, connectors])
+  }, [isSuccess, hash, isError, address, connectedAddress, isConnected, connect, connectors, connected])
 
   function handleSendTransaction() {
     sendTransaction({
