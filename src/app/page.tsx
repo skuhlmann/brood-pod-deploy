@@ -1,5 +1,6 @@
 import { OAuthButton } from "@/components/auth-button";
 import { User } from "@/components/user";
+import { Wallet } from "@/components/wallet";
 
 export default function Home() {
   return (
