@@ -6,6 +6,7 @@ import { alias } from '@/config/connector';
 import { cookieToInitialState, cookieStorage, createConfig, createStorage, custom, http } from 'wagmi'
 import { localhost } from 'wagmi/chains'
 import { headers } from "next/headers";
+import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -48,6 +49,7 @@ export default function RootLayout({
         <Providers initialState={initialState}>
           {children}
         </Providers>
+        <Toaster />
       </body>
     </html>
   );
