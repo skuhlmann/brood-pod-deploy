@@ -1,7 +1,7 @@
 import NextAuth from "next-auth"
  
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  debug: true,
+  // debug: true,
   providers: [{
     id: "alias", // signIn("alias") and will be part of the callback URL
     name: "Alias", // optional, used on the default login page as the button text.

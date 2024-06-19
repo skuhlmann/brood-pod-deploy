@@ -1,10 +1,10 @@
 "use client";
 
-import { useAccount, useConnect, useDisconnect, useSendTransaction } from "wagmi";
+import { useAccount, useConnect, useDisconnect, useSendTransaction, useWriteContract } from "wagmi";
 import { Button } from "./ui/button";
 import { useEffect, useState } from "react";
-import { parseEther } from "viem";
-import { useSendCalls } from "wagmi/experimental";
+import { parseAbi, parseEther } from "viem";
+import { useSendCalls, useWriteContracts } from "wagmi/experimental";
 import { toast } from "sonner";
 
 export function Wallet({ address }: { address: string }) {
@@ -21,6 +21,21 @@ export function Wallet({ address }: { address: string }) {
     data: batchData,
     isError: isBatchError
   } = useSendCalls()
+
+  const {
+    writeContract,
+    isPending: isWCPending,
+    isSuccess: isWCSuccess,
+    data: wcData,
+    isError: isWCError
+  } = useWriteContract()
+  const {
+    writeContracts,
+    isPending: isBatchWCPending,
+    isSuccess: isBatchWCSuccess,
+    data: batchWCData,
+    isError: isBatchWCError
+  } = useWriteContracts()
 
   // handle auto-connect on address change
   useEffect(() => {
@@ -54,6 +69,30 @@ export function Wallet({ address }: { address: string }) {
     }
   }, [isBatchSuccess, batchData, isBatchError])
 
+  // handle write contract status
+  useEffect(() => {
+    if (isWCSuccess) {
+      console.log("Transaction sent with hash:", wcData)
+      toast("Transaction sent!")
+    }
+    if (isError) {
+      console.error("Error sending transaction:", wcData)
+      toast("Error sending transaction.")
+    }
+  }, [isWCSuccess, wcData, isWCError])
+
+  // handle batch transaction status
+  useEffect(() => {
+    if (isBatchWCSuccess) {
+      console.log("Batch transaction sent with data:", batchWCData)
+      toast("Batch transaction sent!")
+    }
+    if (isBatchWCError) {
+      console.error("Error sending batch transaction:", batchWCData)
+      toast("Error sending batch transaction.")
+    }
+  }, [isBatchWCSuccess, batchWCData, isBatchWCError])
+
   function handleSendTransaction() {
     sendTransaction({
       to: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045', // vitalik.eth
@@ -75,12 +114,51 @@ export function Wallet({ address }: { address: string }) {
       ],
     })
   }
+
+  function handleWriteContract() {
+    writeContract({
+      address: "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
+      abi: parseAbi([
+        "function mint(address to, uint256 amount) public",
+      ]),
+      functionName: "mint",
+      args: [address as `0x${string}`, parseEther("100")],
+    })
+  }
+
+  function handleWriteContracts() {
+    const abi = parseAbi([
+      "function mint(address to, uint256 amount) public",
+    ])
+    writeContracts({
+      contracts: [
+        {
+          address: "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
+          abi,
+          functionName: "mint",
+          args: [address as `0x${string}`, parseEther("100")],
+        },
+        {
+          address: "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
+          abi,
+          functionName: "mint",
+          args: ['0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045', parseEther("100")],
+        },
+        {
+          address: "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
+          abi,
+          functionName: "mint",
+          args: ['0xEC17Ec950Ec557b0398a0E735843d59e77744D4D', parseEther("100")],
+        },
+      ]
+    })
+  }
   
   return (
     <div className="mt-2">
       <h1>Wallet connected: {isConnected ? "Yes" : "No"}</h1>
       <div className="flex flex-row w-full items-center gap-2 my-2">
-        <Button onClick={() => {
+        <Button variant="outline" onClick={() => {
           if (isConnected) return disconnect()
           return connect({ connector: connectors[0] })
         }}>
@@ -91,6 +169,14 @@ export function Wallet({ address }: { address: string }) {
         </Button>
         <Button onClick={handleSendBatchTransaction} disabled={!isConnected||isBatchPending}>
           {isBatchPending ? "Confirm in wallet..." : "Send Batch Transaction"}
+        </Button>
+      </div>
+      <div className="flex flex-row w-full items-center gap-2 my-2">
+        <Button onClick={handleWriteContract} disabled={!isConnected||isWCPending}>
+          {isWCPending ? "Confirm in wallet..." : "Mint Token"}
+        </Button>
+        <Button onClick={handleWriteContracts} disabled={!isConnected||isBatchWCPending}>
+          {isBatchWCPending ? "Confirm in wallet..." : "Batch Mint Token"}
         </Button>
       </div>
     </div>
