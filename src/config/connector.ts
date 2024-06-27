@@ -25,7 +25,7 @@ import {
 import { signOut } from 'next-auth/react'
 import { AliasWalletProvider } from './provider'
 
-export const DEFAULT_WALLET_URL = 'http://localhost:3000/wallet'
+export const DEFAULT_WALLET_URL = 'http://localhost:3001/wallet'
 // export let ALIAS_STEALTH_ADDRESS: string | undefined
 
 // export function updateAliasAddress(address: string) {

@@ -3,16 +3,16 @@
 import { alias } from '@/config/connector';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { State, WagmiProvider, cookieStorage, createConfig, createStorage, custom, http } from 'wagmi'
-import { localhost } from 'wagmi/chains'
+import { localhost, foundry } from 'wagmi/chains'
 
 const wagmiConfig = createConfig({
-  chains: [localhost],
+  chains: [foundry],
   connectors: [
     alias({
       preference: 'smartWalletOnly',
-      keysUrl: `http://localhost:3000/wallet`,
+      keysUrl: `http://localhost:3001/wallet`,
       appName: 'Local App',
-      appLogoUrl: 'http://localhost:3000/vercel.svg',
+      appLogoUrl: 'http://localhost:3001/vercel.svg',
     })
   ],
   ssr: true,
@@ -20,7 +20,7 @@ const wagmiConfig = createConfig({
     storage: cookieStorage
   }),
   transports: {
-    [localhost.id]: http('http://localhost:8545'),
+    [foundry.id]: http('http://localhost:8545'),
   }
 })
 

@@ -96,7 +96,8 @@ export function Wallet({ address }: { address: string }) {
   function handleSendTransaction() {
     sendTransaction({
       to: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045', // vitalik.eth
-      value: parseEther("0.01"),
+      // value: parseEther("0.01"),
+      data: "0x12345678"
     })
   }
 
@@ -105,11 +106,13 @@ export function Wallet({ address }: { address: string }) {
       calls: [
         {
           to: '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045', // vitalik.eth
-          value: parseEther("0.01"),
+          // value: parseEther("0.01"),
+          data: "0x12345678"
         },
         {
           to: '0xEC17Ec950Ec557b0398a0E735843d59e77744D4D', // johndoe.eth
-          value: parseEther("0.01"),
+          // value: parseEther("0.01"),
+          data: "0x12345678"
         },
       ],
     })
@@ -163,6 +166,11 @@ export function Wallet({ address }: { address: string }) {
           return connect({ connector: connectors[0] })
         }}>
           {!isConnected ? "Connect" : "Disconnect"}
+        </Button>
+        <Button variant="outline" onClick={() => {
+          console.log("Connected Address:", connectedAddress)
+        }}>
+          Check Connected Address
         </Button>
         <Button onClick={handleSendTransaction} disabled={!isConnected||isPending}>
           {isPending ? "Confirm in wallet..." : "Send Transaction"}
