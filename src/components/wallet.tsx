@@ -184,7 +184,7 @@ export function Wallet({ address }: { address: string }) {
           Check Connected Address
         </Button>
         <Select
-          defaultValue={chainId.toString()}
+          value={chainId.toString()}
           onValueChange={(value) => {
             console.log(value)
             switchChain({ chainId: Number(value) })
