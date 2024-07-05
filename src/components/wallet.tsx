@@ -1,17 +1,27 @@
 "use client";
 
-import { useAccount, useConnect, useDisconnect, useSendTransaction, useWriteContract } from "wagmi";
+import { useAccount, useChainId, useChains, useConnect, useDisconnect, useSendTransaction, useSwitchChain, useWriteContract } from "wagmi";
 import { Button } from "./ui/button";
 import { useEffect, useState } from "react";
 import { parseAbi, parseEther } from "viem";
 import { useSendCalls, useWriteContracts } from "wagmi/experimental";
 import { toast } from "sonner";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 
 export function Wallet({ address }: { address: string }) {
   const { address: connectedAddress, isConnected } = useAccount()
   const { connect, connectors } = useConnect()
   const { disconnect } = useDisconnect()
   const [connected, setConnected] = useState(false)
+
+  const { switchChain, chains } = useSwitchChain()
+  const chainId = useChainId()
 
   const { sendTransaction, isPending, isSuccess, data: hash, isError } = useSendTransaction()
   const {
@@ -160,6 +170,7 @@ export function Wallet({ address }: { address: string }) {
   return (
     <div className="mt-2">
       <h1>Wallet connected: {isConnected ? "Yes" : "No"}</h1>
+      <h1>Chain: {chainId}</h1>
       <div className="flex flex-row w-full items-center gap-2 my-2">
         <Button variant="outline" onClick={() => {
           if (isConnected) return disconnect()
@@ -172,14 +183,32 @@ export function Wallet({ address }: { address: string }) {
         }}>
           Check Connected Address
         </Button>
+        <Select
+          defaultValue={chainId.toString()}
+          onValueChange={(value) => {
+            console.log(value)
+            switchChain({ chainId: Number(value) })
+          }}
+        >
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="Select Chain" />
+          </SelectTrigger>
+          <SelectContent>
+            {chains.map((chain) => (
+              <SelectItem key={chain.id} value={chain.id.toString()}>
+                {chain.name}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+      <div className="flex flex-row w-full items-center gap-2 my-2">
         <Button onClick={handleSendTransaction} disabled={!isConnected||isPending}>
           {isPending ? "Confirm in wallet..." : "Send Transaction"}
         </Button>
         <Button onClick={handleSendBatchTransaction} disabled={!isConnected||isBatchPending}>
           {isBatchPending ? "Confirm in wallet..." : "Send Batch Transaction"}
         </Button>
-      </div>
-      <div className="flex flex-row w-full items-center gap-2 my-2">
         <Button onClick={handleWriteContract} disabled={!isConnected||isWCPending}>
           {isWCPending ? "Confirm in wallet..." : "Mint Token"}
         </Button>

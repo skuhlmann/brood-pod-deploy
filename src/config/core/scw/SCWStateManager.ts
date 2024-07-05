@@ -7,6 +7,12 @@ const ACTIVE_CHAIN_STORAGE_KEY = 'activeChain';
 const AVAILABLE_CHAINS_STORAGE_KEY = 'availableChains';
 const WALLET_CAPABILITIES_STORAGE_KEY = 'walletCapabilities';
 
+const availableChains: Chain[] = [
+  { id: 11155111 },
+  { id: 11155420 },
+  { id: 31337 }
+]
+
 export class SCWStateManager {
   private readonly storage = new ScopedLocalStorage('CBWSDK', 'SCWStateManager');
   private readonly updateListener: StateUpdateListener;
@@ -28,7 +34,8 @@ export class SCWStateManager {
   constructor(params: { updateListener: StateUpdateListener; appChainIds: number[] }) {
     this.updateListener = params.updateListener;
 
-    this.availableChains = this.loadItemFromStorage(AVAILABLE_CHAINS_STORAGE_KEY);
+    // this.availableChains = this.loadItemFromStorage(AVAILABLE_CHAINS_STORAGE_KEY);
+    this.availableChains = availableChains;
     this._walletCapabilities = this.loadItemFromStorage(WALLET_CAPABILITIES_STORAGE_KEY);
     const accounts = this.loadItemFromStorage<AddressString[]>(ACCOUNTS_KEY);
     const chain = this.loadItemFromStorage<Chain>(ACTIVE_CHAIN_STORAGE_KEY);

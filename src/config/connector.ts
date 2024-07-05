@@ -26,11 +26,6 @@ import { signOut } from 'next-auth/react'
 import { AliasWalletProvider } from './provider'
 
 export const DEFAULT_WALLET_URL = 'http://localhost:3001/wallet'
-// export let ALIAS_STEALTH_ADDRESS: string | undefined
-
-// export function updateAliasAddress(address: string) {
-//   ALIAS_STEALTH_ADDRESS = address
-// }
 
 export type SmartWalletParameters<version extends '4'> =
   Evaluate<
@@ -68,10 +63,8 @@ function version4(parameters: Version4Parameters) {
     close?(): void
   }
 
-  // let sdk: CoinbaseWalletSDK | undefined
   let walletProvider: Provider | undefined
-  // let walletChainId: number | undefined = localhost.id
-  // let address: string | undefined
+  let walletChainId: number | undefined
 
   let accountsChanged: Connector['onAccountsChanged'] | undefined
   let chainChanged: Connector['onChainChanged'] | undefined
@@ -90,12 +83,6 @@ function version4(parameters: Version4Parameters) {
             method: 'eth_requestAccounts',
           })) as string[]
         ).map((x) => getAddress(x))
-        // const session = await getSession()
-        // if (!session||!session.user) {
-        //   await signIn('alias')
-        // }
-        // address = (session?.user as any).wallet as string
-        // const accounts = ([address] as string[]).map((x) => getAddress(x))
 
         if (!accountsChanged) {
           accountsChanged = this.onAccountsChanged.bind(this)
@@ -118,9 +105,8 @@ function version4(parameters: Version4Parameters) {
             return { id: currentChainId }
           })
           currentChainId = chain?.id ?? currentChainId
-          // currentChainId = chainId
-          // walletChainId = chainId
         }
+        walletChainId = currentChainId
 
         return { accounts, chainId: currentChainId }
       } catch (error) {
@@ -150,10 +136,8 @@ function version4(parameters: Version4Parameters) {
         disconnect = undefined
       }
 
-      // address = undefined
       await provider.disconnect()
       provider.close?.()
-      // await signOut()
     },
     async getAccounts() {
       const provider = await this.getProvider()
@@ -162,20 +146,14 @@ function version4(parameters: Version4Parameters) {
           method: 'eth_accounts',
         })
       ).map((x) => getAddress(x))
-      // if (!address) {
-      //   const session = await getSession()
-      //   address = (session?.user as any).wallet as string
-      // }
-      // const accounts = ([address] as string[]).map((x) => getAddress(x))
-      // return accounts
     },
     async getChainId() {
       const provider = await this.getProvider()
-      const chainId = await provider.request<Hex>({
+      const currentChainId = await provider.request<Hex>({
         method: 'eth_chainId',
       })
-      // const chainId = walletChainId
-      return Number(chainId)
+      walletChainId = Number(currentChainId)
+      return Number(currentChainId)
     },
     async getProvider() {
       if (!walletProvider) {
@@ -217,8 +195,8 @@ function version4(parameters: Version4Parameters) {
         return false
       }
     },
-    async switchChain({ addEthereumChainParameter, chainId }) {
-      const chain = config.chains.find((chain) => chain.id === chainId)
+    async switchChain({ addEthereumChainParameter, chainId: newChainId }) {
+      const chain = config.chains.find((chain) => chain.id === newChainId)
       if (!chain) throw new SwitchChainError(new ChainNotConfiguredError())
 
       const provider = await this.getProvider()
@@ -228,6 +206,7 @@ function version4(parameters: Version4Parameters) {
           method: 'wallet_switchEthereumChain',
           params: [{ chainId: numberToHex(chain.id) }],
         })
+        walletChainId = chain.id
         return chain
       } catch (error) {
         // Indicates chain is not added to provider
@@ -248,7 +227,7 @@ function version4(parameters: Version4Parameters) {
 
             const addEthereumChain = {
               blockExplorerUrls,
-              chainId: numberToHex(chainId),
+              chainId: numberToHex(newChainId),
               chainName: addEthereumChainParameter?.chainName ?? chain.name,
               iconUrls: addEthereumChainParameter?.iconUrls,
               nativeCurrency:
@@ -279,8 +258,8 @@ function version4(parameters: Version4Parameters) {
         })
     },
     onChainChanged(chain) {
-      const chainId = Number(chain)
-      config.emitter.emit('change', { chainId })
+      walletChainId = Number(chain)
+      config.emitter.emit('change', { chainId: walletChainId })
     },
     async onDisconnect(_error) {
       config.emitter.emit('disconnect')

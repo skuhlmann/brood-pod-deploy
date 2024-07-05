@@ -3,10 +3,14 @@
 import { alias } from '@/config/connector';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { State, WagmiProvider, cookieStorage, createConfig, createStorage, custom, http } from 'wagmi'
-import { localhost, foundry } from 'wagmi/chains'
+import { localhost, foundry, sepolia, optimismSepolia } from 'wagmi/chains'
 
 const wagmiConfig = createConfig({
-  chains: [foundry],
+  chains: [
+    foundry, 
+    optimismSepolia,
+    sepolia
+  ],
   connectors: [
     alias({
       preference: 'smartWalletOnly',
@@ -21,6 +25,8 @@ const wagmiConfig = createConfig({
   }),
   transports: {
     [foundry.id]: http('http://localhost:8545'),
+    [optimismSepolia.id]: http('https://optimism-sepolia-rpc.publicnode.com'),
+    [sepolia.id]: http('https://ethereum-sepolia-rpc.publicnode.com')
   }
 })
 
