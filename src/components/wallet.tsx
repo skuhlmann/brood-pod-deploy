@@ -1,6 +1,6 @@
 "use client";
 
-import { useAccount, useChainId, useChains, useConnect, useDisconnect, useSendTransaction, useSwitchChain, useWriteContract } from "wagmi";
+import { useAccount, useChainId, useChains, useConnect, useDisconnect, useSendTransaction, useSignMessage, useSwitchChain, useWriteContract } from "wagmi";
 import { Button } from "./ui/button";
 import { useEffect, useState } from "react";
 import { parseAbi, parseEther } from "viem";
@@ -47,6 +47,14 @@ export function Wallet({ address }: { address: string }) {
     isError: isBatchWCError
   } = useWriteContracts()
 
+  const {
+    signMessage,
+    isPending: isSignaturePending,
+    isSuccess: isSignatureSuccess,
+    data: signatureData,
+    isError: isSignatureError
+  } = useSignMessage()
+
   // handle auto-connect on address change
   useEffect(() => {
     if (address && !connectedAddress && !isConnected && !connected) {
@@ -79,29 +87,17 @@ export function Wallet({ address }: { address: string }) {
     }
   }, [isBatchSuccess, batchData, isBatchError])
 
-  // handle write contract status
+  // handle sign message status
   useEffect(() => {
-    if (isWCSuccess) {
-      console.log("Transaction sent with hash:", wcData)
-      toast("Transaction sent!")
+    if (isSignatureSuccess) {
+      console.log("signature:", signatureData)
+      toast("Signed message!")
     }
     if (isError) {
-      console.error("Error sending transaction:", wcData)
-      toast("Error sending transaction.")
+      console.error("Error signing message:", signatureData)
+      toast("Error signing message.")
     }
-  }, [isWCSuccess, wcData, isWCError])
-
-  // handle batch transaction status
-  useEffect(() => {
-    if (isBatchWCSuccess) {
-      console.log("Batch transaction sent with data:", batchWCData)
-      toast("Batch transaction sent!")
-    }
-    if (isBatchWCError) {
-      console.error("Error sending batch transaction:", batchWCData)
-      toast("Error sending batch transaction.")
-    }
-  }, [isBatchWCSuccess, batchWCData, isBatchWCError])
+  }, [isSignatureSuccess, signatureData, isSignatureError])
 
   function handleSendTransaction() {
     sendTransaction({
@@ -128,42 +124,9 @@ export function Wallet({ address }: { address: string }) {
     })
   }
 
-  function handleWriteContract() {
-    writeContract({
-      address: "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
-      abi: parseAbi([
-        "function mint(address to, uint256 amount) public",
-      ]),
-      functionName: "mint",
-      args: [address as `0x${string}`, parseEther("100")],
-    })
-  }
-
-  function handleWriteContracts() {
-    const abi = parseAbi([
-      "function mint(address to, uint256 amount) public",
-    ])
-    writeContracts({
-      contracts: [
-        {
-          address: "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
-          abi,
-          functionName: "mint",
-          args: [address as `0x${string}`, parseEther("100")],
-        },
-        {
-          address: "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
-          abi,
-          functionName: "mint",
-          args: ['0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045', parseEther("100")],
-        },
-        {
-          address: "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
-          abi,
-          functionName: "mint",
-          args: ['0xEC17Ec950Ec557b0398a0E735843d59e77744D4D', parseEther("100")],
-        },
-      ]
+  function handleSignMessage() {
+    signMessage({
+      message: "Hello World!"
     })
   }
   
@@ -209,11 +172,8 @@ export function Wallet({ address }: { address: string }) {
         <Button onClick={handleSendBatchTransaction} disabled={!isConnected||isBatchPending}>
           {isBatchPending ? "Confirm in wallet..." : "Send Batch Transaction"}
         </Button>
-        <Button onClick={handleWriteContract} disabled={!isConnected||isWCPending}>
-          {isWCPending ? "Confirm in wallet..." : "Mint Token"}
-        </Button>
-        <Button onClick={handleWriteContracts} disabled={!isConnected||isBatchWCPending}>
-          {isBatchWCPending ? "Confirm in wallet..." : "Batch Mint Token"}
+        <Button onClick={handleSignMessage} disabled={!isConnected||isSignaturePending}>
+          {isSignaturePending ? "Confirm in wallet..." : "Sign Message"}
         </Button>
       </div>
     </div>
