@@ -1,6 +1,6 @@
 "use client";
 
-import { useAccount, useChainId, useChains, useConnect, useDisconnect, useSendTransaction, useSignMessage, useSwitchChain, useWriteContract } from "wagmi";
+import { useAccount, useChainId, useChains, useConnect, useDisconnect, useSendTransaction, useSignMessage, useSignTypedData, useSwitchChain, useWriteContract } from "wagmi";
 import { Button } from "./ui/button";
 import { useEffect, useState } from "react";
 import { parseAbi, parseEther } from "viem";
@@ -23,37 +23,38 @@ export function Wallet({ address }: { address: string }) {
   const { switchChain, chains } = useSwitchChain()
   const chainId = useChainId()
 
-  const { sendTransaction, isPending, isSuccess, data: hash, isError } = useSendTransaction()
+  const {
+    sendTransaction, 
+    isPending, 
+    isSuccess, 
+    data: hash, 
+    isError,
+    error
+  } = useSendTransaction()
   const {
     sendCalls: sendBatchTransaction,
     isPending: isBatchPending,
     isSuccess: isBatchSuccess,
     data: batchData,
-    isError: isBatchError
+    isError: isBatchError,
+    error: batchError
   } = useSendCalls()
-
-  const {
-    writeContract,
-    isPending: isWCPending,
-    isSuccess: isWCSuccess,
-    data: wcData,
-    isError: isWCError
-  } = useWriteContract()
-  const {
-    writeContracts,
-    isPending: isBatchWCPending,
-    isSuccess: isBatchWCSuccess,
-    data: batchWCData,
-    isError: isBatchWCError
-  } = useWriteContracts()
-
   const {
     signMessage,
     isPending: isSignaturePending,
     isSuccess: isSignatureSuccess,
     data: signatureData,
-    isError: isSignatureError
+    isError: isSignatureError,
+    error: signatureError
   } = useSignMessage()
+  const {
+    signTypedData,
+    isPending: isSignTypedDataPending,
+    isSuccess: isSignTypedDataSuccess,
+    data: signTypedDataHash,
+    isError: isSignTypedDataError,
+    error: signTypedDataError
+  } = useSignTypedData()
 
   // handle auto-connect on address change
   useEffect(() => {
@@ -70,10 +71,10 @@ export function Wallet({ address }: { address: string }) {
       toast("Transaction sent!")
     }
     if (isError) {
-      console.error("Error sending transaction:", hash)
+      console.error("Error sending transaction:", error)
       toast("Error sending transaction.")
     }
-  }, [isSuccess, hash, isError])
+  }, [isSuccess, hash, isError, error])
 
   // handle batch transaction status
   useEffect(() => {
@@ -82,10 +83,10 @@ export function Wallet({ address }: { address: string }) {
       toast("Batch transaction sent!")
     }
     if (isBatchError) {
-      console.error("Error sending batch transaction:", batchData)
+      console.error("Error sending batch transaction:", batchError)
       toast("Error sending batch transaction.")
     }
-  }, [isBatchSuccess, batchData, isBatchError])
+  }, [isBatchSuccess, batchData, isBatchError, batchError])
 
   // handle sign message status
   useEffect(() => {
@@ -94,10 +95,22 @@ export function Wallet({ address }: { address: string }) {
       toast("Signed message!")
     }
     if (isError) {
-      console.error("Error signing message:", signatureData)
+      console.error("Error signing message:", signatureError)
       toast("Error signing message.")
     }
-  }, [isSignatureSuccess, signatureData, isSignatureError])
+  }, [isSignatureSuccess, signatureData, isSignatureError, signatureError])
+
+  // handle sign message status
+  useEffect(() => {
+    if (isSignTypedDataSuccess) {
+      console.log("signature:", signTypedDataHash)
+      toast("Signed message!")
+    }
+    if (isSignTypedDataError) {
+      console.error("Error signing message:", signTypedDataError)
+      toast("Error signing message.")
+    }
+  }, [isSignTypedDataSuccess, signTypedDataHash, isSignTypedDataError, signTypedDataError])
 
   function handleSendTransaction() {
     sendTransaction({
@@ -127,6 +140,34 @@ export function Wallet({ address }: { address: string }) {
   function handleSignMessage() {
     signMessage({
       message: "Hello World!"
+    })
+  }
+
+  function handleSignTypedData() {
+    signTypedData({
+      types: {
+        Person: [
+          { name: 'name', type: 'string' },
+          { name: 'wallet', type: 'address' },
+        ],
+        Mail: [
+          { name: 'from', type: 'Person' },
+          { name: 'to', type: 'Person' },
+          { name: 'contents', type: 'string' },
+        ],
+      },
+      primaryType: 'Mail',
+      message: {
+        from: {
+          name: 'Cow',
+          wallet: '0xCD2a3d9F938E13CD947Ec05AbC7FE734Df8DD826',
+        },
+        to: {
+          name: 'Bob',
+          wallet: '0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB',
+        },
+        contents: 'Hello, Bob!',
+      },
     })
   }
   
@@ -174,6 +215,9 @@ export function Wallet({ address }: { address: string }) {
         </Button>
         <Button onClick={handleSignMessage} disabled={!isConnected||isSignaturePending}>
           {isSignaturePending ? "Confirm in wallet..." : "Sign Message"}
+        </Button>
+        <Button onClick={handleSignTypedData} disabled={!isConnected||isSignTypedDataPending}>
+          {isSignTypedDataPending ? "Confirm in wallet..." : "Sign Typed Data"}
         </Button>
       </div>
     </div>
