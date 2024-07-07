@@ -8,9 +8,11 @@ const AVAILABLE_CHAINS_STORAGE_KEY = 'availableChains';
 const WALLET_CAPABILITIES_STORAGE_KEY = 'walletCapabilities';
 
 const availableChains: Chain[] = [
-  { id: 11155111 },
-  { id: 11155420 },
-  { id: 31337 }
+  { id: 11155111 }, // sepolia
+  { id: 11155420 }, // op sepolia
+  { id: 84532 }, // base sepolia
+  { id: 421614 }, // arbitrum sepolia
+  { id: 31337 }, // foundry, hardhat
 ]
 
 export class SCWStateManager {

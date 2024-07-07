@@ -3,13 +3,15 @@
 import { alias } from '@/config/connector';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { State, WagmiProvider, cookieStorage, createConfig, createStorage, custom, http } from 'wagmi'
-import { localhost, foundry, sepolia, optimismSepolia } from 'wagmi/chains'
+import { foundry, sepolia, optimismSepolia, baseSepolia, arbitrumSepolia } from 'wagmi/chains'
 
 const wagmiConfig = createConfig({
   chains: [
-    foundry, 
+    sepolia,
     optimismSepolia,
-    sepolia
+    baseSepolia,
+    arbitrumSepolia,
+    foundry, 
   ],
   connectors: [
     alias({
@@ -24,9 +26,11 @@ const wagmiConfig = createConfig({
     storage: cookieStorage
   }),
   transports: {
-    [foundry.id]: http('http://localhost:8545'),
+    [sepolia.id]: http('https://ethereum-sepolia-rpc.publicnode.com'),
     [optimismSepolia.id]: http('https://optimism-sepolia-rpc.publicnode.com'),
-    [sepolia.id]: http('https://ethereum-sepolia-rpc.publicnode.com')
+    [baseSepolia.id]: http('https://base-sepolia-rpc.publicnode.com'),
+    [arbitrumSepolia.id]: http('https://arbitrum-sepolia-rpc.publicnode.com'),
+    [foundry.id]: http('http://localhost:8545'),
   }
 })
 
