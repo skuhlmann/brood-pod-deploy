@@ -7,6 +7,7 @@ import { cookieToInitialState, cookieStorage, createConfig, createStorage, custo
 import { localhost } from 'wagmi/chains'
 import { headers } from "next/headers";
 import { Toaster } from "@/components/ui/sonner";
+import { wagmiConfig } from "@/config/wagmi";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,24 +15,6 @@ export const metadata: Metadata = {
   title: "Alias Client",
   description: "An example app with Alias integrated.",
 };
-
-export const wagmiConfig = createConfig({
-  chains: [localhost],
-  connectors: [
-    alias({
-      keysUrl: `http://localhost:3000/wallet`,
-      appName: 'Local App',
-      appLogoUrl: 'http://localhost:3000/vercel.svg',
-    })
-  ],
-  ssr: true,
-  storage: createStorage({
-    storage: cookieStorage
-  }),
-  transports: {
-    [localhost.id]: http('http://localhost:8545'),
-  }
-})
 
 export default function RootLayout({
   children,
