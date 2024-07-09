@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
-import { alias } from '@/config/connector';
+import { connector as alias } from 'alias-wallet';
 import { cookieToInitialState, cookieStorage, createConfig, createStorage, custom, http } from 'wagmi'
 import { localhost } from 'wagmi/chains'
 import { headers } from "next/headers";
@@ -19,7 +19,6 @@ export const wagmiConfig = createConfig({
   chains: [localhost],
   connectors: [
     alias({
-      preference: 'smartWalletOnly',
       keysUrl: `http://localhost:3000/wallet`,
       appName: 'Local App',
       appLogoUrl: 'http://localhost:3000/vercel.svg',

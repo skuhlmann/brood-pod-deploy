@@ -1,6 +1,6 @@
 'use client'
 
-import { alias } from '@/config/connector';
+import { connector as alias } from 'alias-wallet';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { State, WagmiProvider, cookieStorage, createConfig, createStorage, custom, http } from 'wagmi'
 import { foundry, sepolia, optimismSepolia, baseSepolia, arbitrumSepolia } from 'wagmi/chains'
@@ -15,7 +15,6 @@ const wagmiConfig = createConfig({
   ],
   connectors: [
     alias({
-      preference: 'smartWalletOnly',
       keysUrl: `http://localhost:3001/wallet`,
       appName: 'Local App',
       appLogoUrl: 'http://localhost:3001/vercel.svg',
