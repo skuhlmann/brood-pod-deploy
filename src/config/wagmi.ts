@@ -23,9 +23,9 @@ export const wagmiConfig = createConfig({
   ],
   connectors: [
     alias({
-      keysUrl: `http://localhost:3001/wallet`,
+      keysUrl: `${process.env.NEXT_PUBLIC_ALIAS_URL}/wallet`,
       appName: 'Local App',
-      appLogoUrl: 'http://localhost:3001/vercel.svg',
+      appLogoUrl: `${process.env.NEXT_PUBLIC_ALIAS_URL}/vercel.svg`,
     })
   ],
   ssr: true,
