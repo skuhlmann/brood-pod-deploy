@@ -11,7 +11,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       url: `${process.env.AUTH_ALIAS_URL}/oauth2/auth`,
       params: {
         scope: "offline profile", // include "openid" if using "oidc"
-        redirect_uri: 'http://localhost:5000/api/auth/callback/alias'
+        redirect_uri: `${process.env.AUTH_ALIAS_URL}/api/auth/callback/alias`
       }
     }, //
     clientId: process.env.AUTH_CLIENT_ID, // from the provider's dashboard
