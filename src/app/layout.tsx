@@ -35,7 +35,8 @@ const sourceSans = Source_Sans_3({
 
 export const metadata: Metadata = {
   title: "Proof of Drink",
-  description: "From Raid Brood",
+  description:
+    "Pooling our Web3 powers to conspire against Moloch in taverns around the world.",
 };
 
 export const viewport: Viewport = {
