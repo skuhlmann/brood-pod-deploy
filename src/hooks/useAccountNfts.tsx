@@ -3,7 +3,6 @@
 import { SequenceIndexer } from "@0xsequence/indexer";
 import { useQuery } from "@tanstack/react-query";
 import { SEQUENCE_ENDPOINT, TARGET_NETWORK } from "@/lib/constants";
-const { SEQUENCE_API_KEY } = process.env;
 
 const fetchNftsForAccount = async ({
   accountAddress,
@@ -22,7 +21,14 @@ const fetchNftsForAccount = async ({
     throw new Error("Invalid ChainId");
   }
 
-  const indexer = new SequenceIndexer(sequenceEndPoint, SEQUENCE_API_KEY);
+  const indexer = new SequenceIndexer(
+    sequenceEndPoint,
+    process.env.NEXT_PUBLIC_SEQUENCE_API_KEY
+  );
+  console.log(
+    "NEXT_PUBLIC_SEQUENCE_API_KEY",
+    process.env.NEXT_PUBLIC_SEQUENCE_API_KEY
+  );
 
   const nftBalances = await indexer.getTokenBalances({
     contractAddress: contractAddress,

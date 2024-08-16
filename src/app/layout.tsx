@@ -29,12 +29,14 @@ const unical = Uncial_Antiqua({
 
 const sourceSans = Source_Sans_3({
   subsets: ["latin"],
+  weight: "variable",
   variable: "--font-sans",
 });
 
 export const metadata: Metadata = {
   title: "Proof of Drink",
-  description: "From Raid Brood",
+  description:
+    "Pooling our Web3 powers to conspire against Moloch in taverns around the world.",
 };
 
 export const viewport: Viewport = {
@@ -59,7 +61,7 @@ export default function RootLayout({
         className={cn(
           unical.variable,
           sourceSans.variable,
-          "bg-black text-white font-sans"
+          "bg-black text-white font-sans text-2xl"
         )}
       >
         <Providers initialState={initialState}>

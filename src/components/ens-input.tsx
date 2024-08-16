@@ -37,6 +37,7 @@ export function EnsToAddressDisplay({
     } else {
       setTargetAddress(undefined);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   if (!isFetching) {
@@ -46,9 +47,14 @@ export function EnsToAddressDisplay({
   return <p>loading...</p>;
 }
 
-export function EnsInput() {
+export function EnsInput({
+  targetAddress,
+  setTargetAddress,
+}: {
+  targetAddress: string | undefined;
+  setTargetAddress: Dispatch<SetStateAction<string | undefined>>;
+}) {
   const [ens, setEns] = useState<string | undefined>();
-  const [targetAddress, setTargetAddress] = useState<string | undefined>();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const match = e.target.value.match(ENS_REGEX);
@@ -61,7 +67,7 @@ export function EnsInput() {
   };
 
   return (
-    <div className="w-56">
+    <div className="w-full sm:w-4/5 px-3 sm:px-10">
       <Input
         type="text"
         placeholder="ENS"
