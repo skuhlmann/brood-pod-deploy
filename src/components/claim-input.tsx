@@ -7,6 +7,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useState } from "react";
 import { Button } from "./ui/button";
 import { AddressInput } from "./address-input";
+import Link from "next/link";
 
 export default function ClaimInput({ tokenId }: { tokenId: string }) {
   const [claimType, setClaimType] = useState<string>("ens");
@@ -64,14 +65,20 @@ export default function ClaimInput({ tokenId }: { tokenId: string }) {
           </Button>
         )}
 
-        <Button
-          size="lg"
-          className="mt-10"
-          variant="secondary"
-          disabled={!validInput}
+        <Link
+          href={
+            validInput ? "/pods/0x83aB8e31df35AA3281d630529C6F4bf5AC7f7aBF" : ""
+          }
         >
-          Claim
-        </Button>
+          <Button
+            size="lg"
+            className="mt-10"
+            variant="secondary"
+            disabled={!validInput}
+          >
+            Claim
+          </Button>
+        </Link>
       </div>
     </>
   );

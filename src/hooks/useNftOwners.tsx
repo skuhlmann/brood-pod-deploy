@@ -1,54 +1,49 @@
 "use client";
 
-import { SequenceIndexer } from "@0xsequence/indexer";
+import {
+  ALCHEMY_ENDPOINT,
+  NFT_CONTRACT_ADDRESS,
+  TARGET_NETWORK,
+} from "@/lib/constants";
 import { useQuery } from "@tanstack/react-query";
-import { SEQUENCE_ENDPOINT, TARGET_NETWORK } from "@/lib/constants";
-const { SEQUENCE_API_KEY } = process.env;
 
-const fetchNftsForAccount = async ({
-  accountAddress,
-  contractAddress,
-}: {
-  accountAddress: string;
-  contractAddress?: string;
-}) => {
-  if (!accountAddress || !contractAddress) {
+const fetchNftOwners = async ({ tokenId }: { tokenId: string }) => {
+  if (!tokenId) {
     throw new Error("Missing Args");
   }
 
-  const sequenceEndPoint = SEQUENCE_ENDPOINT[TARGET_NETWORK];
+  const contractAddress = NFT_CONTRACT_ADDRESS[TARGET_NETWORK];
+  const baseUrl = ALCHEMY_ENDPOINT[TARGET_NETWORK];
 
-  if (!sequenceEndPoint) {
-    throw new Error("Invalid ChainId");
-  }
+  const options = { method: "GET", headers: { accept: "application/json" } };
 
-  const indexer = new SequenceIndexer(sequenceEndPoint, SEQUENCE_API_KEY);
+  fetch(
+    `${baseUrl}${process.env.NEXT_PUBLIC_ALCHEMY_API_KEY}/getOwnersForContract?contractAddress=${contractAddress}&withTokenBalances=true`,
+    options
+  )
+    .then((response) => response.json())
+    .then((response) => {
+      console.log(response);
+      return { data: response };
+    })
+    .catch((err) => {
+      console.error(err);
+      // return { error: err };
+      throw err;
+    });
 
-  const nftBalances = await indexer.getTokenBalances({
-    contractAddress: contractAddress,
-    accountAddress: accountAddress,
-    includeMetadata: true,
-  });
-
-  return { balances: nftBalances, page: nftBalances.page };
+  // return { balances: nftBalances, page: nftBalances.page };
 };
 
-export const useNftOwners = ({
-  accountAddress,
-  contractAddress,
-}: {
-  accountAddress: string;
-  contractAddress: string;
-}) => {
+export const useNftOwners = ({ tokenId }: { tokenId: string }) => {
   const { data, error, ...rest } = useQuery({
-    queryKey: [`accountNfts-${contractAddress}-${accountAddress}`],
+    queryKey: [`accountNfts-${tokenId}`],
     queryFn: () =>
-      fetchNftsForAccount({
-        accountAddress,
-        contractAddress,
+      fetchNftOwners({
+        tokenId,
       }),
-    enabled: !!contractAddress,
+    enabled: !!tokenId,
   });
 
-  return { accountNfts: data?.balances, page: data?.page, error, ...rest };
+  return { data: data, error, ...rest };
 };
