@@ -29,6 +29,7 @@ const unical = Uncial_Antiqua({
 
 const sourceSans = Source_Sans_3({
   subsets: ["latin"],
+  weight: "variable",
   variable: "--font-sans",
 });
 
@@ -59,7 +60,7 @@ export default function RootLayout({
         className={cn(
           unical.variable,
           sourceSans.variable,
-          "bg-black text-white font-sans"
+          "bg-black text-white font-sans text-2xl"
         )}
       >
         <Providers initialState={initialState}>
