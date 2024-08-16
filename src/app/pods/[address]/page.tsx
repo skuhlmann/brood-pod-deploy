@@ -12,7 +12,7 @@ export default function Holdings({ params }: { params: { address: string } }) {
 
   console.log("accountNfts", accountNfts);
   return (
-    <main>
+    <>
       <div className="mb-4 text-xs">address: {params.address}</div>
       {accountNfts?.balances && (
         <h3>{accountNfts.balances.length} PODs Held</h3>
@@ -33,6 +33,6 @@ export default function Holdings({ params }: { params: { address: string } }) {
             </div>
           );
         })}
-    </main>
+    </>
   );
 }

@@ -1,5 +1,5 @@
 export type POD = {
-  tokenId: number;
+  tokenId: string;
   description: string;
   name: string;
   external_url: string;
@@ -13,7 +13,7 @@ export type POD = {
 
 export const ACTIVE_PODS: POD[] = [
   {
-    tokenId: 1,
+    tokenId: "1",
     description:
       "Crisp and dry, traditional pilsner profile with a touch of lemongrass, bergamot and blacktea from late Saphir hop additions.",
     external_url: "https://brood.raidguild.org/redpil",
@@ -41,7 +41,7 @@ export const ACTIVE_PODS: POD[] = [
     ],
   },
   {
-    tokenId: 2,
+    tokenId: "2",
     description:
       "A hop forward crushable Kveik Pilsner. Made in collaboration with the Green Pil Podcast. $1 form every sale goes to fund public goods.",
     external_url: "https://brood.raidguild.org/greenpil",

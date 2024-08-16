@@ -2,6 +2,7 @@ import { MEDIA_FILES } from "@/lib/constants";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "../ui/button";
+import { Avatar, AvatarImage } from "../ui/avatar";
 
 export default function Footer() {
   return (
@@ -10,8 +11,15 @@ export default function Footer() {
         <p className="text-sm">Made with ⚔️</p>
       </a>
       <div className="flex flex-row justify-center item-center gap-3 text-md">
-        <Button>Connect Wallet</Button>
-        <Link href="/" type="external">
+        <Link href="/pods/0x83aB8e31df35AA3281d630529C6F4bf5AC7f7aBF">
+          <Button>
+            <Avatar className="w-6 h-6 mr-3">
+              <AvatarImage src="/logo_footer.svg" alt="@brood" />
+            </Avatar>
+            My PODs
+          </Button>
+        </Link>
+        <Link href="/">
           <Image
             src={MEDIA_FILES.logos.footer}
             alt="brood"

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { PodCard } from "@/components/pod-card";
+import { PodOverviewCard } from "@/components/pod-overview-card";
 import { ACTIVE_PODS } from "@/lib/pod-data";
 import Link from "next/link";
 
@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <div className="flex flex-col items-center justify-center gap-5 mt-10">
       <Image src="/logo_footer.svg" alt="logo" width="350" height="350" />
-      <h2 className="text-4xl text-center">
+      <h2 className="text-4xl text-center font-bold">
         The Oxidized Noble Bitter Protocol
       </h2>
       <p className="text-center">
@@ -24,7 +24,7 @@ export default function Home() {
             return (
               <Link key={pod.tokenId} href={`/leaderboard/${pod.tokenId}`}>
                 <div className="hover:bg-broodRed">
-                  <PodCard tokenId={pod.tokenId} size="sm" />
+                  <PodOverviewCard tokenId={pod.tokenId} size="sm" />
                 </div>
               </Link>
             );

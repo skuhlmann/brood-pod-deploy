@@ -1,8 +1,11 @@
+import { LeaderList } from "@/components/leader-list";
+import { PodOverviewCard } from "@/components/pod-overview-card";
+
 export default function Leaderboard({ params }: { params: { beer: string } }) {
   return (
-    <div>
-      <h2 className="font-serif">leaderboard</h2>
-      <div className="font-sans">beer: {params.beer}</div>
-    </div>
+    <>
+      <PodOverviewCard tokenId={params.beer} size="lg" />
+      <LeaderList tokenId={params.beer} />
+    </>
   );
 }
