@@ -18,8 +18,6 @@ export default function ClaimInput({ tokenId }: { tokenId: string }) {
     setTargetAddress(undefined);
   };
 
-  console.log("targetAddress", targetAddress);
-
   const validInput = targetAddress;
 
   return (

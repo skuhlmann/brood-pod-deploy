@@ -1,12 +1,17 @@
 import Image from "next/image";
+import { SiFarcaster } from "react-icons/si";
+import { RiExternalLinkLine } from "react-icons/ri";
+
 import { ACTIVE_PODS } from "@/lib/pod-data";
 
 export async function PodOverviewCard({
   tokenId,
   size,
+  castLink = false,
 }: {
   tokenId: string;
   size: "sm" | "lg";
+  castLink?: boolean;
 }) {
   // const { pod } = usePod(tokenId);
   const pod = ACTIVE_PODS.find((pod) => tokenId === pod.tokenId);
@@ -57,14 +62,27 @@ export async function PodOverviewCard({
           <div className="w-full">
             <p className="text-sm sm:text-md">{pod.description}</p>
           </div>
-          <div className="w-full">
+          <div className="flex flex-col gap-2 w-full">
             <a
               target="_blank"
               href={pod.external_url}
               className="underline text-sm text-broodRed"
             >
-              {`More ${pod.name} Info`}
+              <div className="flex items-center gap-1">
+                <RiExternalLinkLine /> {`More ${pod.name} Info`}
+              </div>
             </a>
+            {castLink && (
+              <a
+                target="_blank"
+                href="https://warpcast.com/earth2travis/0xec32e083"
+                className="underline text-sm text-broodRed"
+              >
+                <div className="flex items-center gap-1">
+                  <SiFarcaster /> {`Cast`}
+                </div>
+              </a>
+            )}
           </div>
         </div>
       </div>
