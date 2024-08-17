@@ -17,7 +17,7 @@ const fetchPod = async ({ tokenId }: { tokenId: number }) => {
   const contractAddress = NFT_CONTRACT_ADDRESS[TARGET_NETWORK];
   console.log("fetching contract data", contractAddress);
 
-  const targetPod = ACTIVE_PODS.find((pod) => tokenId === pod.tokenId);
+  const targetPod = ACTIVE_PODS.find((pod) => tokenId === Number(pod.tokenId));
   return { pod: targetPod };
 };
 
