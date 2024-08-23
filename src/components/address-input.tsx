@@ -1,15 +1,6 @@
 "use client";
 
-import {
-  ChangeEvent,
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  useState,
-} from "react";
-import { useEnsAddress } from "wagmi";
-import { mainnet } from "viem/chains";
-import { normalize } from "viem/ens";
+import { ChangeEvent, Dispatch, SetStateAction } from "react";
 import { Input } from "./ui/input";
 
 const ADDRESS_REGEX = /^(0x)?[0-9a-fA-F]{40}$/;
