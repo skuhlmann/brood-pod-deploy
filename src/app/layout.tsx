@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Uncial_Antiqua, Source_Sans_3 } from "next/font/google";
+import { Source_Sans_3, Bungee } from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
 import { connector as alias } from "alias-wallet";
@@ -18,10 +18,10 @@ import { wagmiConfig } from "@/config/wagmi";
 import { cn } from "@/lib/utils";
 import WrapperLayout from "@/components/layout/wrapper";
 
-// Uncial Antiqua
+// Bungee
 // Source Sans Pro
 
-const unical = Uncial_Antiqua({
+const bungee = Bungee({
   subsets: ["latin"],
   weight: "400",
   variable: "--font-serif",
@@ -59,7 +59,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={cn(
-          unical.variable,
+          bungee.variable,
           sourceSans.variable,
           "bg-black text-white font-sans text-2xl"
         )}
