@@ -8,6 +8,12 @@ const nextConfig = {
         port: "",
         pathname: "/ipfs/**",
       },
+      {
+        protocol: "https",
+        hostname: "daohaus.mypinata.cloud",
+        port: "",
+        pathname: "/ipfs/**",
+      },
     ],
   },
 };

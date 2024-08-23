@@ -1,17 +1,15 @@
-export const TARGET_NETWORK = "0x2105";
+export const TARGET_NETWORK = "0x14a34";
 
 export const NFT_CONTRACT_ADDRESS: Record<string, `0x${string}`> = {
-  "0xaa36a7": "0xB49a877D82c1f0133B0293dfd20eB54BEd07a290",
-  "0x2105": "0xA9d3c833df8415233e1626F29E33ccBA37d2A187",
-};
-export const SEQUENCE_ENDPOINT: Record<string, string> = {
-  "0xaa36a7": "https://sepolia-indexer.sequence.app",
-  "0x2105": "https://base-indexer.sequence.app",
+  "0x14a34": "0x2b530b015a096267d71ed54d797238479e817ab5",
+  "0x2105": "0x0",
 };
 
-export const ALCHEMY_ENDPOINT: Record<string, string> = {
-  "0xaa36a7": "https://sepolia.g.alchemy.com/nft/v3/",
-  "0x2105": "https://base-mainnet.g.alchemy.com/nft/v3/",
+export const GRAPH_ENDPOINT: Record<string, string> = {
+  // "0x14a34": `https://gateway.thegraph.com/api/${process.env.NEXT_PUBLIC_GRAPH_KEY}/subgraphs/id/56yN2ZTTbwcmZSPxDAzo5hgUMwrBfjiJ9c7DHfAwj2Dv`,
+  "0x14a34":
+    "https://api.studio.thegraph.com/query/3450/proof-of-drink-base-sepolia/version/latest",
+  "0x2105": `https://gateway.thegraph.com/api/${process.env.NEXT_PUBLIC_GRAPH_KEY}/subgraphs/id/56yN2ZTTbwcmZSPxDAzo5hgUMwrBfjiJ9c7DHfAwj2Dv`,
 };
 
 export const MEDIA_FILES = {
