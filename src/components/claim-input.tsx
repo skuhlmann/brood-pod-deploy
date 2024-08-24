@@ -8,10 +8,13 @@ import { Button } from "./ui/button";
 import { AddressInput } from "./address-input";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { useAccount } from "wagmi";
+import { ConnectKitButton } from "connectkit";
 
 export default function ClaimInput({ tokenId }: { tokenId: string }) {
   const searchParams = useSearchParams();
   const claimCode = searchParams.get("code");
+  const { address } = useAccount();
 
   const [claimType, setClaimType] = useState<string>("ens");
   const [targetAddress, setTargetAddress] = useState<string | undefined>();
@@ -66,9 +69,10 @@ export default function ClaimInput({ tokenId }: { tokenId: string }) {
           />
         )}
         {claimType === "wallet" && (
-          <Button size="lg" className="mt-10">
-            Connect Wallet
-          </Button>
+          <>
+            {address && <p className="text-xs">Connected with {address}</p>}
+            {!address && <ConnectKitButton />}
+          </>
         )}
 
         <Link
