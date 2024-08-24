@@ -7,8 +7,12 @@ import { useState } from "react";
 import { Button } from "./ui/button";
 import { AddressInput } from "./address-input";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 export default function ClaimInput({ tokenId }: { tokenId: string }) {
+  const searchParams = useSearchParams();
+  const claimCode = searchParams.get("code");
+
   const [claimType, setClaimType] = useState<string>("ens");
   const [targetAddress, setTargetAddress] = useState<string | undefined>();
 
@@ -18,6 +22,11 @@ export default function ClaimInput({ tokenId }: { tokenId: string }) {
   };
 
   const validInput = targetAddress;
+
+  if (!claimCode)
+    return (
+      <h2 className="text-center text-3xl font-bold my-5">Invalid Claim</h2>
+    );
 
   return (
     <>
