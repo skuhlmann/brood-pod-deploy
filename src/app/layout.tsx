@@ -51,10 +51,11 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const initialState = cookieToInitialState(
-    wagmiConfig,
-    headers().get("cookie")
-  );
+  // const initialState = cookieToInitialState(
+  //   wagmiConfig,
+  //   headers().get("cookie")
+  // );
+  const initialState = undefined;
   return (
     <html lang="en">
       <body
