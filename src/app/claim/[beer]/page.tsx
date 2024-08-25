@@ -1,11 +1,11 @@
-import ClaimInput from "@/components/claim-input";
+import ClaimPod from "@/components/claim-pod";
 import { PodOverviewCard } from "@/components/pod-overview-card";
 
 export default function Claim({ params }: { params: { beer: string } }) {
   return (
     <>
       <PodOverviewCard tokenId={params.beer} size="lg" />
-      <ClaimInput tokenId={params.beer} />
+      <ClaimPod tokenId={params.beer} />
     </>
   );
 }

@@ -19,7 +19,7 @@ import {
 
 export const wagmiConfig = createConfig(
   getDefaultConfig({
-    chains: [base, baseSepolia],
+    chains: [base, baseSepolia, mainnet],
     connectors: [
       coinbaseWallet(),
       // alias({
@@ -33,6 +33,7 @@ export const wagmiConfig = createConfig(
     //   storage: cookieStorage,
     // }),
     transports: {
+      [mainnet.id]: http("https://ethereum-rpc.publicnode.com "),
       [base.id]: http("https://base-rpc.publicnode.com"),
       [baseSepolia.id]: http("https://base-sepolia-rpc.publicnode.com"),
     },
