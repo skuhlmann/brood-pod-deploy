@@ -6,7 +6,10 @@
     "dev": "next dev -p 4000",
     "build": "next build",
     "start": "next start -p 4000",
-    "lint": "next lint"
+    "lint": "next lint",
+    "db": "bash ./scripts/local-db.sh",
+    "generate": "bun drizzle-kit generate",
+    "migrate": "bun ./scripts/migrate.ts"
   },
   "dependencies": {
     "0xsequence": "^1.10.11",
