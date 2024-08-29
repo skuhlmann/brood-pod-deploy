@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
   const code = codes.find(code => code.code === claimCode)
   if (!code) return NextResponse.json({ error: "Claim code not found" }, { status: 404 })
   // Create merkle tree from codes
-  const merkleTree = StandardMerkleTree.of(codes.map(code => [code.leaf]), ["string"]);
+  const merkleTree = StandardMerkleTree.of(codes.map(code => [code.code]), ["string"]);
   // Verify merkle root matches root in contract
   const client = createPublicClient({
     chain: getChain(chainId),
@@ -59,6 +59,6 @@ export async function POST(req: NextRequest) {
     }
   }
   // Else, return proof to client
-  if (code.leaf !== address) return NextResponse.json({ error: "Invalid claim code" }, { status: 400 })
+  // if (code.leaf !== address) return NextResponse.json({ error: "Invalid claim code" }, { status: 400 })
   return NextResponse.json({ success: true, proof }, { status: 200 })
 }

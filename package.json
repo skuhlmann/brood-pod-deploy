@@ -9,7 +9,9 @@
     "lint": "next lint",
     "db": "bash ./scripts/local-db.sh",
     "generate": "bun drizzle-kit generate",
-    "migrate": "bun ./scripts/migrate.ts"
+    "migrate": "bun ./scripts/migrate.ts",
+    "upload": "bun ./scripts/upload.ts",
+    "view-codes": "bun ./scripts/view-codes.ts"
   },
   "dependencies": {
     "0xsequence": "^1.10.11",

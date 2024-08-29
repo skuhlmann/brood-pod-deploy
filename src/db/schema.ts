@@ -20,5 +20,5 @@ export const claimCodes = pgTable('claim_codes', {
   tree_id: serial('tree_id').references(() => merkleTrees.id).notNull(),
   index: bigint('index', { mode: 'bigint' }).notNull(),
   code: text('code').notNull(),
-  leaf: text('leaf').notNull(),
+  // leaf: text('leaf').notNull(),
 });
