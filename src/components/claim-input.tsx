@@ -15,13 +15,15 @@ import { Loader2 } from "lucide-react";
 export default function ClaimInput({
   targetAddress,
   setTargetAddress,
+  claimType,
+  setClaimType,
 }: {
   targetAddress?: string;
   setTargetAddress: Dispatch<SetStateAction<string | undefined>>;
+  claimType?: string;
+  setClaimType: Dispatch<SetStateAction<string>>;
 }) {
   const { address } = useAccount();
-
-  const [claimType, setClaimType] = useState<string>("ens");
 
   const handleChange = (value: string) => {
     setClaimType(value);

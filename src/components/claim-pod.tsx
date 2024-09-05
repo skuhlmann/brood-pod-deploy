@@ -2,35 +2,69 @@
 
 import { useState } from "react";
 import { Button } from "./ui/button";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { useAccount } from "wagmi";
 import ClaimInput from "./claim-input";
 import Link from "next/link";
 import { Avatar, AvatarImage } from "./ui/avatar";
+import { toast } from "./ui/use-toast";
+import { CHAIN_ID, POD_CONTRACT_ADDRESS } from "@/config/constants";
+import { Loader2 } from "lucide-react";
 
 // todo: validate code
 
 export default function ClaimPod({ tokenId }: { tokenId: string }) {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const claimCode = searchParams.get("code");
   const { address } = useAccount();
 
   const [targetAddress, setTargetAddress] = useState<string | undefined>();
+  const [claimType, setClaimType] = useState<string>("ens");
 
   const [loading, setLoading] = useState<boolean>(false);
   const [isClaimed, setIsClaimed] = useState<boolean>(false);
 
+  console.log("tokenId", tokenId);
+
   const handleClaim = async () => {
     setLoading(true);
-    console.log(
-      `claiming tokenid ${tokenId} to ${address} with code ${claimCode}`
-    );
+    const to = claimType === "wallet" ? address : targetAddress;
 
-    setTimeout(() => {
-      console.log("after delay");
-      setLoading(false);
-      setIsClaimed(true);
-    }, 3000);
+    console.log("claiming to", to);
+    console.log("tokenId", tokenId);
+    console.log("POD_CONTRACT_ADDRESS", POD_CONTRACT_ADDRESS);
+    console.log("CHAIN_ID", CHAIN_ID);
+
+    try {
+      const res = await fetch(`/api/claim`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          claimCode,
+          address: to,
+          tokenId,
+          contractAddress: POD_CONTRACT_ADDRESS,
+          chainId: CHAIN_ID,
+          sponsored: true,
+        }),
+      });
+      const data = await res.json();
+      console.log(data);
+      if (data.success) {
+        // To DO: wait for transaction to be confirmed
+        toast({
+          title: "Claimed",
+          description: "You have successfully claimed your Proof of Drink",
+        });
+        router.push(`/pods/${to}`);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+    setLoading(false);
   };
 
   const canClaim = targetAddress;
@@ -47,22 +81,28 @@ export default function ClaimPod({ tokenId }: { tokenId: string }) {
       </h2>
 
       <div className="flex flex-col items-center w-full mt-5">
-        {loading && <p>Glug glug glug....</p>}
+        {loading && (
+          <>
+            <p>Glug glug glug....</p>
+            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+          </>
+        )}
         {!loading && !isClaimed && (
           <>
             <ClaimInput
               targetAddress={targetAddress}
               setTargetAddress={setTargetAddress}
+              claimType={claimType}
+              setClaimType={setClaimType}
             />
 
             <Button
               size="lg"
               className="mt-10"
-              variant="secondary"
-              disabled={!canClaim}
+              disabled={!canClaim || loading}
               onClick={handleClaim}
             >
-              Claim
+              {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             </Button>
           </>
         )}
