@@ -5,11 +5,9 @@ import { Button } from "./ui/button";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useAccount } from "wagmi";
 import ClaimInput from "./claim-input";
-import Link from "next/link";
-import { Avatar, AvatarImage } from "./ui/avatar";
 import { toast } from "./ui/use-toast";
 import { CHAIN_ID, POD_CONTRACT_ADDRESS } from "@/config/constants";
-import { Loader2 } from "lucide-react";
+import { Beer } from "lucide-react";
 
 // todo: validate code
 
@@ -23,18 +21,10 @@ export default function ClaimPod({ tokenId }: { tokenId: string }) {
   const [claimType, setClaimType] = useState<string>("ens");
 
   const [loading, setLoading] = useState<boolean>(false);
-  const [isClaimed, setIsClaimed] = useState<boolean>(false);
-
-  console.log("tokenId", tokenId);
 
   const handleClaim = async () => {
     setLoading(true);
     const to = claimType === "wallet" ? address : targetAddress;
-
-    console.log("claiming to", to);
-    console.log("tokenId", tokenId);
-    console.log("POD_CONTRACT_ADDRESS", POD_CONTRACT_ADDRESS);
-    console.log("CHAIN_ID", CHAIN_ID);
 
     try {
       const res = await fetch(`/api/claim`, {
@@ -84,10 +74,10 @@ export default function ClaimPod({ tokenId }: { tokenId: string }) {
         {loading && (
           <>
             <p>Glug glug glug....</p>
-            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            <Beer className="mr-2 h-4 w-4 animate-spin" />
           </>
         )}
-        {!loading && !isClaimed && (
+        {!loading && (
           <>
             <ClaimInput
               targetAddress={targetAddress}
@@ -102,16 +92,8 @@ export default function ClaimPod({ tokenId }: { tokenId: string }) {
               disabled={!canClaim || loading}
               onClick={handleClaim}
             >
-              {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+              {loading && <Beer className="mr-2 h-4 w-4 animate-spin" />}
             </Button>
-          </>
-        )}
-        {isClaimed && (
-          <>
-            <p>Down the hatch!</p>
-            <Link href={`/pods/${targetAddress}`}>
-              <Button>Checkout your POD count</Button>
-            </Link>
           </>
         )}
       </div>
