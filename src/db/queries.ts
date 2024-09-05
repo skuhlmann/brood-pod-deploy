@@ -23,5 +23,6 @@ export async function getMerkleTreeByPod(
 
 export async function getClaimCodesByMerkleTree(treeId: number) {
   const results = await db.select().from(claimCodes).where(eq(claimCodes.tree_id, treeId))
-  return results.sort((a, b) => Number(a.index - b.index))
+  // return results.sort((a, b) => Number(a.index - b.index))
+  return results
 }

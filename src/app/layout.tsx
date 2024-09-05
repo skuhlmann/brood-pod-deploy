@@ -13,7 +13,7 @@ import {
 } from "wagmi";
 import { localhost } from "wagmi/chains";
 import { headers } from "next/headers";
-import { Toaster } from "@/components/ui/sonner";
+import { Toaster } from "@/components/ui/toaster";
 import { wagmiConfig } from "@/config/wagmi";
 import { cn } from "@/lib/utils";
 import WrapperLayout from "@/components/layout/wrapper";

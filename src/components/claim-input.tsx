@@ -7,9 +7,13 @@ import { useState } from "react";
 import { Button } from "./ui/button";
 import { AddressInput } from "./address-input";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useAccount } from "wagmi";
 import { ConnectKitButton } from "connectkit";
+import { Address } from "viem";
+import { CHAIN_ID, POD_CONTRACT_ADDRESS } from "@/config/constants";
+import { toast } from "./ui/use-toast";
+import { Loader2 } from "lucide-react";
 
 export default function ClaimInput({ tokenId }: { tokenId: string }) {
   const searchParams = useSearchParams();
@@ -18,6 +22,9 @@ export default function ClaimInput({ tokenId }: { tokenId: string }) {
 
   const [claimType, setClaimType] = useState<string>("ens");
   const [targetAddress, setTargetAddress] = useState<string | undefined>();
+  const [claiming, setClaiming] = useState<boolean>(false);
+
+  const router = useRouter();
 
   const handleChange = (value: string) => {
     setClaimType(value);
@@ -25,6 +32,39 @@ export default function ClaimInput({ tokenId }: { tokenId: string }) {
   };
 
   const validInput = targetAddress;
+
+  async function handleClaim(to: Address) {
+    setClaiming(true);
+    try {
+      const res = await fetch(`/api/claim`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          claimCode,
+          address: to,
+          tokenId,
+          contractAddress: POD_CONTRACT_ADDRESS,
+          chainId: CHAIN_ID,
+          sponsored: true,
+        }),
+      });
+      const data = await res.json();
+      console.log(data);
+      if (data.success) {
+        // To DO: wait for transaction to be confirmed
+        toast({
+          title: "Claimed",
+          description: "You have successfully claimed your proof of drink",
+        });
+        router.push(`/pods/${targetAddress}`);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+    setClaiming(false);
+  }
 
   if (!claimCode)
     return (
@@ -75,20 +115,16 @@ export default function ClaimInput({ tokenId }: { tokenId: string }) {
           </>
         )}
 
-        <Link
-          href={
-            validInput ? "/pods/0x83aB8e31df35AA3281d630529C6F4bf5AC7f7aBF" : ""
-          }
+        <Button
+          size="lg"
+          className="mt-10"
+          variant="secondary"
+          disabled={!validInput || claiming}
+          onClick={() => handleClaim(targetAddress as Address)}
         >
-          <Button
-            size="lg"
-            className="mt-10"
-            variant="secondary"
-            disabled={!validInput}
-          >
-            Claim
-          </Button>
-        </Link>
+          {claiming && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+          Claim
+        </Button>
       </div>
     </>
   );
