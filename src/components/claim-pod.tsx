@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Button } from "./ui/button";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useAccount } from "wagmi";
 import ClaimInput from "./claim-input";
 import { toast } from "./ui/use-toast";
@@ -11,10 +11,14 @@ import { Beer } from "lucide-react";
 
 // todo: validate code
 
-export default function ClaimPod({ tokenId }: { tokenId: string }) {
-  const searchParams = useSearchParams();
+export default function ClaimPod({
+  tokenId,
+  claimCode,
+}: {
+  tokenId: string;
+  claimCode: string;
+}) {
   const router = useRouter();
-  const claimCode = searchParams.get("code");
   const { address } = useAccount();
 
   const [targetAddress, setTargetAddress] = useState<string | undefined>();
