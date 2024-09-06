@@ -22,6 +22,9 @@ export function PodOverviewCard({
   if (size === "sm") {
     return (
       <div className="p-4 flex flex-row flex-wrap gap-5 items-center justify-center">
+        <div className="w-full sm:w-2/4">
+          <p className="text-3xl font-sans text-broodRed">{meta.name}</p>
+        </div>
         <div>
           <Image
             src={meta.image}
@@ -31,14 +34,13 @@ export function PodOverviewCard({
             className="rounded-full"
           />
         </div>
-        <div className="w-full sm:w-32">
-          <p className="text-4xl">{meta.name}</p>
-        </div>
-        <div className="w-full sm:w-2/4">
-          <p className="text-m font-bold mb-1">
-            Total Claims: {podToken?.totalClaims}
+        <div className="w-full sm:w-1/4 flex flex-row gap-3">
+          <p className="font-sans text-2xl font-bold mb-1">
+            {podToken?.totalClaims}
           </p>
-          <p className="text-sm">{meta.description}</p>
+          <p className="text-lg font-bold">{`Collector${
+            podToken?.totalClaims > 1 ? "s" : ""
+          }`}</p>
         </div>
       </div>
     );
@@ -65,7 +67,7 @@ export function PodOverviewCard({
         </div>
         <div className="w-full sm:w-2/4 p-2 sm:p-10 flex flex-col gap-5 justify-center">
           <div className="w-full">
-            <p className="text-3xl sm:text-5xl font-bold">{meta.name}</p>
+            <p className="text-3xl sm:text-5xl text-broodRed">{meta.name}</p>
           </div>
           <div className="w-full">
             <p className="text-sm sm:text-md">{meta.description}</p>

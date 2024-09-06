@@ -94,6 +94,26 @@
   animation-delay: 5s;
 }
 
+.headline {
+  @apply font-sans text-broodGreen text-shadow text-shadow-blur-0 text-shadow-x-xl text-shadow-y-xl  text-shadow-broodRed;
+}
+
+.headline-md {
+  @apply font-sans text-broodGreen text-shadow text-shadow-blur-0 text-shadow-x-lg text-shadow-y-lg  text-shadow-broodRed;
+}
+
+.headline-md-rev {
+  @apply font-sans text-broodRed text-shadow text-shadow-blur-0 text-shadow-x-lg text-shadow-y-lg  text-shadow-broodGreen;
+}
+
+.body-text-lg {
+  @apply text-3xl sm:text-5xl font-bold;
+}
+
+.body-text-md {
+  @apply text-xl sm:text-3xl;
+}
+
 @layer base {
   * {
     @apply border-border;

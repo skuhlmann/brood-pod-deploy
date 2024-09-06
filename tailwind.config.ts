@@ -24,7 +24,9 @@ const config = {
         serif: ["var(--font-serif)", ...fontFamily.serif],
       },
       colors: {
-        broodRed: "#ff3864",
+        broodRed: "#f25480",
+        broodGreen: "#6deec0",
+        broodWhite: "#c7cac2",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -81,9 +83,26 @@ const config = {
       spacing: {
         "256": "64rem",
       },
+      boxShadow: {
+        brood: "10px 10px 0 0 #f25480",
+      },
+    },
+    textShadowSteps: {
+      sm: "1px",
+      md: "2px",
+      lg: "4px",
+      xl: "6px",
+      0: "0",
+      1: "1px",
+      2: "2px",
+      3: "3px",
+      4: "4px",
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    require("@designbycode/tailwindcss-text-shadow"),
+  ],
 } satisfies Config;
 
 export default config;

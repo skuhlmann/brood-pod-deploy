@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { Source_Sans_3, Bungee } from "next/font/google";
+import localFont from "next/font/local";
+import { EB_Garamond } from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
 import { connector as alias } from "alias-wallet";
@@ -18,19 +19,19 @@ import { wagmiConfig } from "@/config/wagmi";
 import { cn } from "@/lib/utils";
 import WrapperLayout from "@/components/layout/wrapper";
 
-// Bungee
+// Revue
 // Source Sans Pro
 
-const bungee = Bungee({
-  subsets: ["latin"],
+const revue = localFont({
+  src: "../../public/fonts/revue.woff",
+  variable: "--font-sans",
   weight: "400",
-  variable: "--font-serif",
 });
 
-const sourceSans = Source_Sans_3({
+const sourceSerif = EB_Garamond({
   subsets: ["latin"],
   weight: "variable",
-  variable: "--font-sans",
+  variable: "--font-serif",
 });
 
 export const metadata: Metadata = {
@@ -60,9 +61,9 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={cn(
-          bungee.variable,
-          sourceSans.variable,
-          "bg-black text-white font-sans text-2xl"
+          revue.variable,
+          sourceSerif.variable,
+          "bg-black text-broodWhite font-serif text-3xl"
         )}
       >
         <Providers initialState={initialState}>

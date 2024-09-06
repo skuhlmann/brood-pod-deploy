@@ -3,11 +3,8 @@
 import { EnsInput } from "@/components/ens-input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { useState } from "react";
-import { Button } from "./ui/button";
+import { Dispatch, SetStateAction, useState } from "react";
 import { AddressInput } from "./address-input";
-import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
 import { useAccount } from "wagmi";
 import { ConnectKitButton } from "connectkit";
 import { Address } from "viem";
@@ -15,68 +12,26 @@ import { CHAIN_ID, POD_CONTRACT_ADDRESS } from "@/config/constants";
 import { toast } from "./ui/use-toast";
 import { Loader2 } from "lucide-react";
 
-export default function ClaimInput({ tokenId }: { tokenId: string }) {
-  const searchParams = useSearchParams();
-  const claimCode = searchParams.get("code");
+export default function ClaimInput({
+  targetAddress,
+  setTargetAddress,
+  claimType,
+  setClaimType,
+}: {
+  targetAddress?: string;
+  setTargetAddress: Dispatch<SetStateAction<string | undefined>>;
+  claimType?: string;
+  setClaimType: Dispatch<SetStateAction<string>>;
+}) {
   const { address } = useAccount();
-
-  const [claimType, setClaimType] = useState<string>("ens");
-  const [targetAddress, setTargetAddress] = useState<string | undefined>();
-  const [claiming, setClaiming] = useState<boolean>(false);
-
-  const router = useRouter();
 
   const handleChange = (value: string) => {
     setClaimType(value);
     setTargetAddress(undefined);
   };
 
-  const validInput = targetAddress;
-
-  async function handleClaim(to: Address) {
-    setClaiming(true);
-    try {
-      const res = await fetch(`/api/claim`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          claimCode,
-          address: to,
-          tokenId,
-          contractAddress: POD_CONTRACT_ADDRESS,
-          chainId: CHAIN_ID,
-          sponsored: true,
-        }),
-      });
-      const data = await res.json();
-      console.log(data);
-      if (data.success) {
-        // To DO: wait for transaction to be confirmed
-        toast({
-          title: "Claimed",
-          description: "You have successfully claimed your proof of drink",
-        });
-        router.push(`/pods/${targetAddress}`);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-    setClaiming(false);
-  }
-
-  if (!claimCode)
-    return (
-      <h2 className="text-center text-3xl font-bold my-5">Invalid Claim</h2>
-    );
-
   return (
     <>
-      <h2 className="text-center text-3xl font-bold my-5">
-        Claim Proof of Drink
-      </h2>
-
       <RadioGroup
         defaultValue={claimType}
         onValueChange={handleChange}
@@ -114,17 +69,6 @@ export default function ClaimInput({ tokenId }: { tokenId: string }) {
             {!address && <ConnectKitButton />}
           </>
         )}
-
-        <Button
-          size="lg"
-          className="mt-10"
-          variant="secondary"
-          disabled={!validInput || claiming}
-          onClick={() => handleClaim(targetAddress as Address)}
-        >
-          {claiming && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-          Claim
-        </Button>
       </div>
     </>
   );
