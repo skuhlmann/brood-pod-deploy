@@ -7,7 +7,6 @@ import Link from "next/link";
 import { MEDIA_FILES } from "@/lib/constants";
 import { Button } from "../ui/button";
 import { useAccount } from "wagmi";
-import { Beer } from "lucide-react";
 
 export default function Footer() {
   const { address } = useAccount();
@@ -21,14 +20,20 @@ export default function Footer() {
         <ConnectKitButton />
         {address && (
           <Link href={`/pods/${address}`}>
-            <Button size="icon" variant="ghost">
-              <Beer />
+            <Button
+              size="icon"
+              variant="ghost"
+              className="rounded-none hover:bg-transparent"
+            >
+              <Image
+                src="/BROOD-steins-logo.png"
+                alt="brood"
+                width="50"
+                height="50"
+              />
             </Button>
           </Link>
         )}
-        <Link href="/">
-          <Image src="/BROOD-LOGO.png" alt="brood" width="50" height="50" />
-        </Link>
         <a target="_blank" href="https://discord.gg/XKGM8u8XTQ" type="external">
           <Image
             src={MEDIA_FILES.icons.discord}

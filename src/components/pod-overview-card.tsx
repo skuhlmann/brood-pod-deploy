@@ -22,9 +22,6 @@ export function PodOverviewCard({
   if (size === "sm") {
     return (
       <div className="p-4 flex flex-row flex-wrap gap-5 items-center justify-center">
-        <div className="w-full sm:w-2/4">
-          <p className="text-3xl font-sans text-broodRed">{meta.name}</p>
-        </div>
         <div>
           <Image
             src={meta.image}
@@ -34,12 +31,14 @@ export function PodOverviewCard({
             className="rounded-full"
           />
         </div>
-        <div className="w-full sm:w-1/4 flex flex-row gap-3">
-          <p className="font-sans text-2xl font-bold mb-1">
-            {podToken?.totalClaims}
-          </p>
-          <p className="text-lg font-bold">{`Collector${
-            podToken?.totalClaims > 1 ? "s" : ""
+        <div className="w-full sm:w-3/5">
+          <p className="font-serif text-base font-bold">{`ID ${podToken?.id}`}</p>
+          <p className="text-3xl font-sans text-broodRed">{meta.name}</p>
+        </div>
+        <div className="w-full sm:w-1/5 flex flex-row gap-3 border border-broodGreen py-1 px-4 rounded-full">
+          <p className="text-xl font-bold">{podToken?.totalClaims}</p>
+          <p className="text-xl font-bold">{`Collector${
+            podToken?.totalClaims && Number(podToken.totalClaims) > 1 ? "s" : ""
           }`}</p>
         </div>
       </div>
@@ -48,8 +47,8 @@ export function PodOverviewCard({
 
   if (size === "lg") {
     return (
-      <div className="p-4 flex flex-row flex-wrap items-center justify-center">
-        <div className="w-full sm:w-2/4 flex justify-center">
+      <div className="flex flex-col justify-center items-center p-10 border border-broodGreen shadow-brood">
+        <div className="bg-gray-800 w-full p-5 flex justify-center">
           <Image
             src={meta.image}
             alt="logo"
@@ -65,39 +64,68 @@ export function PodOverviewCard({
             className="block sm:hidden rounded-full"
           />
         </div>
-        <div className="w-full sm:w-2/4 p-2 sm:p-10 flex flex-col gap-5 justify-center">
-          <div className="w-full">
-            <p className="text-3xl sm:text-5xl text-broodRed">{meta.name}</p>
-          </div>
-          <div className="w-full">
-            <p className="text-sm sm:text-md">{meta.description}</p>
-          </div>
-          <div className="w-full">
-            <p className="text-m font-bold mb-1">
-              Total Claims: {podToken?.totalClaims}
-            </p>
-          </div>
-          <div className="flex flex-col gap-2 w-full">
-            <a
-              target="_blank"
-              href={meta.external_url}
-              className="underline text-sm text-broodRed"
-            >
-              <div className="flex items-center gap-1">
-                <RiExternalLinkLine /> {`More ${meta.name} Info`}
-              </div>
-            </a>
-            {castLink && (
+
+        <div className="p-4 flex flex-row flex-wrap items-center justify-center">
+          <div className="w-full p-2 sm:p-10 flex flex-col gap-5 justify-center">
+            <div className="w-full">
+              <p className="font-sans text-3xl sm:text-5xl text-broodRed">
+                {meta.name}
+              </p>
+            </div>
+
+            <div className="w-full">
+              <p className="text-sm sm:text-md">{meta.description}</p>
+            </div>
+
+            <div className="w-full">
+              <p className="text-sm sm:text-md">Beer Style</p>
+            </div>
+
+            <div className="w-full">
+              <p className="text-sm sm:text-md">Partner Brewery</p>
+            </div>
+
+            <div className="w-full">
+              <p className="text-sm sm:text-md">Partner Brands</p>
+            </div>
+
+            <div className="flex flex-col gap-2 w-full">
               <a
                 target="_blank"
-                href="https://warpcast.com/earth2travis/0xec32e083"
+                href={meta.external_url}
                 className="underline text-sm text-broodRed"
               >
                 <div className="flex items-center gap-1">
-                  <SiFarcaster /> {`Cast`}
+                  <RiExternalLinkLine /> {`More ${meta.name} Info`}
                 </div>
               </a>
-            )}
+            </div>
+
+            <div className="flex flex-row flex-wrap gap-10 w-full p-5 border border-broodGreen">
+              <div>
+                <p className="text-base font-bold mb-1">
+                  {`${podToken?.totalClaims} Collector${
+                    podToken?.totalClaims && Number(podToken.totalClaims) > 1
+                      ? "s"
+                      : ""
+                  }`}
+                </p>
+              </div>
+              <div>
+                <p className="text-base font-bold mb-1">
+                  Brewed September 2024
+                </p>
+              </div>
+              <div>
+                <p className="text-base font-bold mb-1">Cascade Hops</p>
+              </div>
+              <div>
+                <p className="text-base font-bold mb-1">9.5 ABV</p>
+              </div>
+              <div>
+                <p className="text-base font-bold mb-1">5.5 IBU</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>

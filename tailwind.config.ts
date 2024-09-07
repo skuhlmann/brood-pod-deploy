@@ -24,7 +24,9 @@ const config = {
         serif: ["var(--font-serif)", ...fontFamily.serif],
       },
       colors: {
+        broodPink: "#f25480",
         broodRed: "#f25480",
+        // broodRed: "#ce1f2c",
         broodGreen: "#6deec0",
         broodWhite: "#c7cac2",
         border: "hsl(var(--border))",
@@ -85,6 +87,7 @@ const config = {
       },
       boxShadow: {
         brood: "10px 10px 0 0 #f25480",
+        broodGreen: "10px 10px 0 0 #6deec0",
       },
     },
     textShadowSteps: {

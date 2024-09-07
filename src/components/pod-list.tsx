@@ -12,7 +12,7 @@ export function PodList() {
 
   return (
     <>
-      <h2 className="text-center mt-5 headline-md">BROOD BEERS</h2>
+      <h2 className="text-center mt-5 font-sans text-broodRed">BROOD.BEER</h2>
 
       <div className="p-4 flex flex-col gap-12">
         {podTokens &&
