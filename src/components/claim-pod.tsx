@@ -70,8 +70,8 @@ export default function ClaimPod({
 
   return (
     <>
-      <h2 className="text-center text-3xl font-bold my-5">
-        Claim Proof of Drink
+      <h2 className="font-sans headline-sm text-xl text-center mt-10">
+        Collect a POD
       </h2>
 
       <div className="flex flex-col items-center w-full mt-5">
@@ -91,12 +91,13 @@ export default function ClaimPod({
             />
 
             <Button
-              size="lg"
-              className="mt-10"
+              variant="brood"
+              className="mt-5"
               disabled={!canClaim || loading}
               onClick={handleClaim}
             >
               {loading && <Beer className="mr-2 h-4 w-4 animate-spin" />}
+              {!loading && <p className="font-sans">Collect</p>}
             </Button>
           </>
         )}

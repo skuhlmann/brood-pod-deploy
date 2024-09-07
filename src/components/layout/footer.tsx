@@ -7,7 +7,6 @@ import Link from "next/link";
 import { MEDIA_FILES } from "@/lib/constants";
 import { Button } from "../ui/button";
 import { useAccount } from "wagmi";
-import { Beer } from "lucide-react";
 
 export default function Footer() {
   const { address } = useAccount();

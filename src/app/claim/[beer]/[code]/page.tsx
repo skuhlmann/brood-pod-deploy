@@ -13,8 +13,12 @@ export default function Claim({
 
   return (
     <>
-      <PodOverviewCard tokenId={tokenId} size="lg" />
-      <ClaimPod tokenId={tokenId} claimCode={params.code} />
+      <div className="my-5">
+        <ClaimPod tokenId={tokenId} claimCode={params.code} />
+      </div>
+      <div className="p-4 sm:p-2">
+        <PodOverviewCard tokenId={tokenId} size="lg" />
+      </div>
     </>
   );
 }
