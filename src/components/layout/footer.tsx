@@ -4,9 +4,9 @@ import { ConnectKitButton } from "connectkit";
 import Image from "next/image";
 import Link from "next/link";
 
-import { MEDIA_FILES } from "@/lib/constants";
 import { Button } from "../ui/button";
 import { useAccount } from "wagmi";
+import { MEDIA_FILES } from "@/config/constants";
 
 export default function Footer() {
   const { address } = useAccount();
@@ -20,20 +20,19 @@ export default function Footer() {
         <ConnectKitButton />
         {address && (
           <Link href={`/pods/${address}`}>
-            <Button
-              size="icon"
-              variant="ghost"
-              className="rounded-none hover:bg-transparent"
-            >
-              <Image
-                src="/BROOD-steins-logo.png"
-                alt="brood"
-                width="50"
-                height="50"
-              />
+            <Button size="sm" variant="ghost" className="rounded-none">
+              Your PODs
             </Button>
           </Link>
         )}
+        <a target="_blank" href="https://brood.raidguild.org/" type="external">
+          <Image
+            src="/STEINS_LOGO_WHITE.svg"
+            alt="brood"
+            width="48"
+            height="48"
+          />
+        </a>
         <a target="_blank" href="https://discord.gg/XKGM8u8XTQ" type="external">
           <Image
             src={MEDIA_FILES.icons.discord}
@@ -44,20 +43,12 @@ export default function Footer() {
         </a>
         <a
           target="_blank"
-          href="https://warpcast.com/RaidBrood"
+          href="https://warpcast.com/~/channel/post-yer-ale"
           type="external"
         >
           <Image
             src="/farcaster-white.png"
             alt="farcaster"
-            width="32"
-            height="32"
-          />
-        </a>
-        <a target="_blank" href="https://twitter.com/RaidBrood" type="external">
-          <Image
-            src={MEDIA_FILES.icons.twitter}
-            alt="twitter"
             width="32"
             height="32"
           />

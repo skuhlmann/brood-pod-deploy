@@ -7,7 +7,7 @@ export default function Header() {
       <Link href="/">
         <div className="flex flex-row items-center gap-2">
           <Image
-            src="/BROOD-steins-logo.svg"
+            src="/STEINS_LOGO_BLACK.svg"
             alt="logo"
             width="50"
             height="50"

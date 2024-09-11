@@ -1,10 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { SiFarcaster } from "react-icons/si";
-import { RiExternalLinkLine } from "react-icons/ri";
 
 import { usePodToken } from "@/hooks/usePodToken";
+import Link from "next/link";
 
 export function PodHoldingCard({
   tokenId,
@@ -20,42 +19,29 @@ export function PodHoldingCard({
   if (!podToken || !meta) return null;
 
   return (
-    <div className="p-4 flex flex-row flex-wrap gap-5 items-center justify-center">
-      <p className="text-center text-9xl font-bold">{value}</p>
-      <div>
-        <Image
-          src={meta.image}
-          alt="logo"
-          width="100"
-          height="100"
-          className="rounded-full"
-        />
-      </div>
-      <div className="w-full sm:w-32">
-        <p className="text-center text-4xl">{meta.name}</p>
-      </div>
-      <div>
-        <a
-          target="_blank"
-          href={meta.external_url}
-          className="underline text-sm text-broodRed"
-        >
-          <div className="flex items-center gap-1">
-            <RiExternalLinkLine /> {`More ${meta.name} Info`}
-          </div>
-        </a>
-        {castLink && (
-          <a
-            target="_blank"
-            href="https:warpcast.com/earth2travis/0xec32e083"
-            className="underline text-sm text-broodRed"
-          >
-            <div className="flex items-center gap-1">
-              <SiFarcaster /> {`Cast`}
+    <div className="border border-solid border-broodGreen shadow-brood hover:bg-broodGreen mb-10">
+      <Link href={`/leaderboard/${tokenId}`}>
+        <div className="flex flex-row items-center ">
+          <p className="text-center text-7xl w-1/5 font-sans text-broodRed">
+            {value}
+          </p>
+          <div className="p-4 flex flex-row flex-wrap gap-5 items-center justify-center w-3/5">
+            <div>
+              <Image
+                src={meta.image}
+                alt="logo"
+                width="100"
+                height="100"
+                className="rounded-full"
+              />
             </div>
-          </a>
-        )}
-      </div>
+            <div className="w-full sm:w-3/5">
+              <p className="font-serif text-base font-bold">{`ID ${podToken?.id}`}</p>
+              <p className="text-3xl font-sans text-broodRed">{meta.name}</p>
+            </div>
+          </div>
+        </div>
+      </Link>
     </div>
   );
 }
