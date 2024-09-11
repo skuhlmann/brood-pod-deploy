@@ -5,15 +5,15 @@ import { SiFarcaster } from "react-icons/si";
 import { RiExternalLinkLine } from "react-icons/ri";
 
 import { usePodToken } from "@/hooks/usePodToken";
+import { PodStats } from "./pod-stats";
+import { PodBenefits } from "./pod-benefits";
 
 export function PodOverviewCard({
   tokenId,
   size,
-  castLink = false,
 }: {
   tokenId: string;
   size: "sm" | "lg";
-  castLink?: boolean;
 }) {
   const { podToken, meta } = usePodToken({ tokenId });
 
@@ -100,32 +100,9 @@ export function PodOverviewCard({
                 </div>
               </a>
             </div>
+            <PodBenefits tokenId={tokenId} />
 
-            <div className="flex flex-row flex-wrap gap-10 w-full p-5 border border-broodGreen">
-              <div>
-                <p className="text-base font-bold mb-1">
-                  {`${podToken?.totalClaims} Collector${
-                    podToken?.totalClaims && Number(podToken.totalClaims) > 1
-                      ? "s"
-                      : ""
-                  }`}
-                </p>
-              </div>
-              <div>
-                <p className="text-base font-bold mb-1">
-                  Brewed September 2024
-                </p>
-              </div>
-              <div>
-                <p className="text-base font-bold mb-1">Cascade Hops</p>
-              </div>
-              <div>
-                <p className="text-base font-bold mb-1">9.5 ABV</p>
-              </div>
-              <div>
-                <p className="text-base font-bold mb-1">5.5 IBU</p>
-              </div>
-            </div>
+            <PodStats tokenId={tokenId} />
           </div>
         </div>
       </div>

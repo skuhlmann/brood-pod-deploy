@@ -1,11 +1,24 @@
-import Image from "next/image";
-
+/* eslint-disable @next/next/no-img-element */
 import { PodList } from "@/components/pod-list";
 
 export default function Home() {
   return (
     <>
       <div className="flex flex-col items-center justify-center gap-5 mt-10 px-5 pt-5 pb-10 border-b border-broodGreen">
+        <div className="flex flex-row justify-space-between items-center gap-10">
+          <img className="h-20 sm:h-44 md:h-60" src="/badge.svg" alt="badge" />
+          <img
+            className="h-20 sm:h-44 md:h-60"
+            src="/badge-1.svg"
+            alt="badge"
+          />
+          <img
+            className="h-20 sm:h-44 md:h-60"
+            src="/badge-2.svg"
+            alt="badge"
+          />
+        </div>
+
         <h2 className="font-sans headline-sm text-4xl text-center">
           COLLECTING LIQUIDITY
         </h2>

@@ -70,10 +70,6 @@ export default function ClaimPod({
 
   return (
     <>
-      <h2 className="font-sans headline-sm text-xl text-center mt-10">
-        Collect a POD
-      </h2>
-
       <div className="flex flex-col items-center w-full mt-5">
         {loading && (
           <>
