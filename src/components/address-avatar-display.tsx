@@ -23,7 +23,7 @@ export function AddressAvatarDisplay({ address }: { address: string }) {
       {!data && (
         <div className="flex flex-row gap-1">
           <Avatar className="w-8 h-8 mr-3">
-            <AvatarImage src="/BROOD-steins-logo.svg" alt="@brood" />
+            <AvatarImage src="/STEINS_LOGO_BLACK.svg" alt="@brood" />
           </Avatar>
           <p className="text-lg sm:text-3xl">{truncateAddress(address)}</p>
         </div>
