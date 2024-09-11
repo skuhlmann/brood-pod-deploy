@@ -7,6 +7,7 @@ import { RiExternalLinkLine } from "react-icons/ri";
 import { usePodToken } from "@/hooks/usePodToken";
 import { PodStats } from "./pod-stats";
 import { PodBenefits } from "./pod-benefits";
+import { PodRelatedLinks } from "./pod-related-links";
 
 export function PodOverviewCard({
   tokenId,
@@ -103,6 +104,8 @@ export function PodOverviewCard({
             <PodBenefits tokenId={tokenId} />
 
             <PodStats tokenId={tokenId} />
+
+            <PodRelatedLinks tokenId={tokenId} />
           </div>
         </div>
       </div>

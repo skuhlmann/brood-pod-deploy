@@ -1,6 +1,7 @@
 import ClaimPod from "@/components/claim-pod";
 import { PodBenefits } from "@/components/pod-benefits";
 import { PodOverviewCard } from "@/components/pod-overview-card";
+import { PodRelatedLinks } from "@/components/pod-related-links";
 import { getTokenIdFromName, TOKEN_CONFIG } from "@/config/constants";
 
 export default function Claim({
@@ -27,6 +28,10 @@ export default function Claim({
 
       <div className="mt-8 p-4 sm:p-2">
         <PodBenefits tokenId={tokenId} />
+      </div>
+
+      <div className="mt-8 p-4 sm:p-2">
+        <PodRelatedLinks tokenId={tokenId} />
       </div>
     </div>
   );
