@@ -1,32 +1,38 @@
-import { MEDIA_FILES } from "@/lib/constants";
+"use client";
+
+import { ConnectKitButton } from "connectkit";
 import Image from "next/image";
 import Link from "next/link";
+
 import { Button } from "../ui/button";
-import { Avatar, AvatarImage } from "../ui/avatar";
+import { useAccount } from "wagmi";
+import { MEDIA_FILES } from "@/config/constants";
 
 export default function Footer() {
+  const { address } = useAccount();
+
   return (
     <div className="flex flex-col-reverse sm:flex-row justify-between items-center flex-wrap gap-5 w-full p-10 mt-10">
-      <a target="_blank" href="https://brood.raidguild.org/">
+      <a target="_blank" href="https://raidguild.org/">
         <p className="text-sm">Made with ⚔️</p>
       </a>
       <div className="flex flex-row justify-center item-center gap-3 text-md">
-        <Link href="/pods/0x83aB8e31df35AA3281d630529C6F4bf5AC7f7aBF">
-          <Button>
-            <Avatar className="w-6 h-6 mr-3">
-              <AvatarImage src="/logo_footer.svg" alt="@brood" />
-            </Avatar>
-            My PODs
-          </Button>
-        </Link>
-        <Link href="/">
+        <ConnectKitButton />
+        {address && (
+          <Link href={`/pods/${address}`}>
+            <Button size="sm" variant="ghost" className="rounded-none">
+              Your PODs
+            </Button>
+          </Link>
+        )}
+        <a target="_blank" href="https://brood.raidguild.org/" type="external">
           <Image
-            src={MEDIA_FILES.logos.footer}
+            src="/STEINS_LOGO_WHITE.svg"
             alt="brood"
-            width="50"
-            height="50"
+            width="48"
+            height="48"
           />
-        </Link>
+        </a>
         <a target="_blank" href="https://discord.gg/XKGM8u8XTQ" type="external">
           <Image
             src={MEDIA_FILES.icons.discord}
@@ -35,10 +41,14 @@ export default function Footer() {
             height="32"
           />
         </a>
-        <a target="_blank" href="https://twitter.com/RaidBrood" type="external">
+        <a
+          target="_blank"
+          href="https://warpcast.com/~/channel/post-yer-ale"
+          type="external"
+        >
           <Image
-            src={MEDIA_FILES.icons.twitter}
-            alt="twitter"
+            src="/farcaster-white.png"
+            alt="farcaster"
             width="32"
             height="32"
           />

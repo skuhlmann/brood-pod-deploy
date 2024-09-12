@@ -3,15 +3,15 @@
 import { useQuery } from "@tanstack/react-query";
 import { GraphQLClient } from "graphql-request";
 
-import { GRAPH_ENDPOINT, TARGET_NETWORK } from "@/lib/constants";
 import { GET_POD_TOKEN } from "@/lib/graph-queries";
 
 import { PodToken, TokenMeta } from "@/lib/types";
 import { gatewayImagePath, gatewayImagePathTemp } from "@/lib/utils";
 import { get } from "@/lib/fetch";
+import { CHAIN_ID, GRAPH_ENDPOINT } from "@/config/constants";
 
 export const usePodToken = ({ tokenId }: { tokenId: string }) => {
-  const graphQLClient = new GraphQLClient(GRAPH_ENDPOINT[TARGET_NETWORK]);
+  const graphQLClient = new GraphQLClient(GRAPH_ENDPOINT[CHAIN_ID]);
 
   const { data, ...rest } = useQuery({
     queryKey: ["get-pod", { tokenId }],

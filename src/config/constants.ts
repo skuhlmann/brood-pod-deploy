@@ -1,15 +1,38 @@
-export const TARGET_NETWORK = "0x14a34";
+import { base, baseSepolia } from "viem/chains";
 
-export const NFT_CONTRACT_ADDRESS: Record<string, `0x${string}`> = {
-  "0x14a34": "0x2b530b015a096267d71ed54d797238479e817ab5",
-  "0x2105": "0x0",
+export const PROD_MODE =
+  process.env.PROD_MODE && process.env.PROD_MODE.toLowerCase() === "true";
+
+export const POD_CONTRACT_ADDRESS =
+  "0x2b530b015a096267d71ed54d797238479e817ab5";
+export const CHAIN_ID = PROD_MODE ? base.id : baseSepolia.id;
+
+export const GRAPH_ENDPOINT: Record<number, string> = {
+  84532:
+    "https://api.studio.thegraph.com/query/3450/proof-of-drink-base-sepolia/version/latest",
+  8453: `https://gateway.thegraph.com/api/${process.env.NEXT_PUBLIC_GRAPH_KEY}/subgraphs/id/56yN2ZTTbwcmZSPxDAzo5hgUMwrBfjiJ9c7DHfAwj2Dv`,
 };
 
-export const GRAPH_ENDPOINT: Record<string, string> = {
-  // "0x14a34": `https://gateway.thegraph.com/api/${process.env.NEXT_PUBLIC_GRAPH_KEY}/subgraphs/id/56yN2ZTTbwcmZSPxDAzo5hgUMwrBfjiJ9c7DHfAwj2Dv`,
-  "0x14a34":
-    "https://api.studio.thegraph.com/query/3450/proof-of-drink-base-sepolia/version/latest",
-  "0x2105": `https://gateway.thegraph.com/api/${process.env.NEXT_PUBLIC_GRAPH_KEY}/subgraphs/id/56yN2ZTTbwcmZSPxDAzo5hgUMwrBfjiJ9c7DHfAwj2Dv`,
+type TokenConfig = { name: string; tokenId: string };
+export const TOKEN_CONFIG: Record<string, TokenConfig> = {
+  "1": {
+    name: "hotdog",
+    tokenId: "1",
+  },
+  "2": {
+    name: "decent-raidguild",
+    tokenId: "2",
+  },
+  "3": {
+    name: "tw",
+    tokenId: "3",
+  },
+};
+export const getTokenIdFromName = (name: string) => {
+  const config = Object.keys(TOKEN_CONFIG).find((id) => {
+    return TOKEN_CONFIG[id].name === name;
+  });
+  return config && TOKEN_CONFIG[config].tokenId;
 };
 
 export const MEDIA_FILES = {

@@ -14,7 +14,7 @@ export function EnsAvatar({ ens }: { ens: string }) {
   return (
     <Avatar className="w-8 h-8 mr-3">
       {data && <AvatarImage src={data} alt={ens} />}
-      {!data && <AvatarImage src="/logo_footer.svg" alt="@brood" />}
+      {!data && <AvatarImage src="/STEINS_LOGO_BLACK.svg" alt="@brood" />}
     </Avatar>
   );
 }

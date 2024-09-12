@@ -3,28 +3,35 @@
 import { EnsInput } from "@/components/ens-input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { useState } from "react";
-import { Button } from "./ui/button";
+import { Dispatch, SetStateAction, useState } from "react";
 import { AddressInput } from "./address-input";
-import Link from "next/link";
+import { useAccount } from "wagmi";
+import { ConnectKitButton } from "connectkit";
+import { Address } from "viem";
+import { CHAIN_ID, POD_CONTRACT_ADDRESS } from "@/config/constants";
+import { toast } from "./ui/use-toast";
+import { Loader2 } from "lucide-react";
 
-export default function ClaimInput({ tokenId }: { tokenId: string }) {
-  const [claimType, setClaimType] = useState<string>("ens");
-  const [targetAddress, setTargetAddress] = useState<string | undefined>();
+export default function ClaimInput({
+  targetAddress,
+  setTargetAddress,
+  claimType,
+  setClaimType,
+}: {
+  targetAddress?: string;
+  setTargetAddress: Dispatch<SetStateAction<string | undefined>>;
+  claimType?: string;
+  setClaimType: Dispatch<SetStateAction<string>>;
+}) {
+  const { address } = useAccount();
 
   const handleChange = (value: string) => {
     setClaimType(value);
     setTargetAddress(undefined);
   };
 
-  const validInput = targetAddress;
-
   return (
     <>
-      <h2 className="text-center text-3xl font-bold my-5">
-        Claim Proof of Drink
-      </h2>
-
       <RadioGroup
         defaultValue={claimType}
         onValueChange={handleChange}
@@ -57,25 +64,11 @@ export default function ClaimInput({ tokenId }: { tokenId: string }) {
           />
         )}
         {claimType === "wallet" && (
-          <Button size="lg" className="mt-10">
-            Connect Wallet
-          </Button>
+          <>
+            {address && <p className="text-xs">Connected with {address}</p>}
+            {!address && <ConnectKitButton />}
+          </>
         )}
-
-        <Link
-          href={
-            validInput ? "/pods/0x83aB8e31df35AA3281d630529C6F4bf5AC7f7aBF" : ""
-          }
-        >
-          <Button
-            size="lg"
-            className="mt-10"
-            variant="secondary"
-            disabled={!validInput}
-          >
-            Claim
-          </Button>
-        </Link>
       </div>
     </>
   );
