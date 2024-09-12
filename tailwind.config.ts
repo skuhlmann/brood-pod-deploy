@@ -29,6 +29,7 @@ const config = {
         // broodRed: "#ce1f2c",
         broodGreen: "#6deec0",
         broodWhite: "#c7cac2",
+        broodBlack: "#272b23",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

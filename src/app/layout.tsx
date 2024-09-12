@@ -63,7 +63,7 @@ export default function RootLayout({
         className={cn(
           revue.variable,
           sourceSerif.variable,
-          "bg-black text-broodWhite font-serif text-3xl"
+          "bg-broodBlack text-broodWhite font-serif text-3xl"
         )}
       >
         <Providers initialState={initialState}>
