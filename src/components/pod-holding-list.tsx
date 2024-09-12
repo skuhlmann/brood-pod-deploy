@@ -4,32 +4,30 @@ import { usePodTokensForAccount } from "@/hooks/usePodTokensForAccount";
 import { PodHoldingCard } from "./pod-holding-card";
 
 export function PodHoldingList({ address }: { address: string }) {
-  const { account } = usePodTokensForAccount({
+  const { account, total } = usePodTokensForAccount({
     address,
   });
 
   if (!account) return null;
 
   return (
-    <>
-      <h2 className="text-center text-xl">
-        Holds {account.balances.length} Proof of Drink NFTs
+    <div className="sm:w-144">
+      <h2 className="text-center text-xl mb-10">
+        Holds {total} Proof of Drink NFTs
       </h2>
-      <div className="p-4 flex flex-col gap-5">
-        {account.balances.map((balance) => {
-          return (
-            <div key={balance.id}>
-              {balance.token && (
-                <PodHoldingCard
-                  tokenId={balance.token.id}
-                  value={balance.value}
-                  castLink
-                />
-              )}
-            </div>
-          );
-        })}
-      </div>
-    </>
+      {account.balances.map((balance) => {
+        return (
+          <div key={balance.id}>
+            {balance.token && (
+              <PodHoldingCard
+                tokenId={balance.token.id}
+                value={balance.value}
+                castLink={false}
+              />
+            )}
+          </div>
+        );
+      })}
+    </div>
   );
 }
