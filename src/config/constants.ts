@@ -20,7 +20,7 @@ export const TOKEN_CONFIG: Record<string, TokenConfig> = {
     tokenId: "1",
   },
   "2": {
-    name: "decent-raid-guild",
+    name: "decent-raidguild",
     tokenId: "2",
   },
   "3": {
