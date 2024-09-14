@@ -22,6 +22,7 @@ const config = {
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
         serif: ["var(--font-serif)", ...fontFamily.serif],
+        body: ["var(--font-body)"],
       },
       colors: {
         broodPink: "#f25480",
