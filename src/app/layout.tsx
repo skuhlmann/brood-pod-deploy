@@ -40,8 +40,7 @@ const garamond = EB_Garamond({
 
 export const metadata: Metadata = {
   title: "Proof of Drink",
-  description:
-    "Pooling our Web3 powers to conspire against Moloch in taverns around the world.",
+  description: "Collecting Liquidity",
 };
 
 export const viewport: Viewport = {
