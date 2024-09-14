@@ -19,13 +19,14 @@ const buttonVariants = cva(
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
         brood:
-          "font-sans bg-black hover:bg-broodGreen border border-broodGreen rounded-none shadow-brood",
+          "font-sans bg-broodBlack hover:bg-broodGreen border border-broodGreen rounded-none shadow-brood",
       },
       size: {
         default: "h-10 px-4 py-2",
         sm: "h-9 rounded-md px-3",
         lg: "h-11 rounded-md px-8",
         icon: "h-10 w-10",
+        brood: "h-16 px-10",
       },
     },
     defaultVariants: {

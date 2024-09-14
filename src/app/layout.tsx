@@ -1,26 +1,24 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
-import { EB_Garamond } from "next/font/google";
-import "./globals.css";
+import { EB_Garamond, Nanum_Gothic } from "next/font/google";
 import Providers from "./providers";
-import { connector as alias } from "alias-wallet";
-import {
-  cookieToInitialState,
-  cookieStorage,
-  createConfig,
-  createStorage,
-  custom,
-  http,
-} from "wagmi";
-import { localhost } from "wagmi/chains";
-import { headers } from "next/headers";
-import { Toaster } from "@/components/ui/toaster";
-import { wagmiConfig } from "@/config/wagmi";
+// alias
+// import { connector as alias } from "alias-wallet";
+// import {
+//   cookieToInitialState,
+//   cookieStorage,
+//   createConfig,
+//   createStorage,
+//   custom,
+//   http,
+// } from "wagmi";
+// import { localhost } from "wagmi/chains";
+// import { headers } from "next/headers";
+// import { wagmiConfig } from "@/config/wagmi";
 import { cn } from "@/lib/utils";
 import WrapperLayout from "@/components/layout/wrapper";
-
-// Revue
-// Source Sans Pro
+import { Toaster } from "@/components/ui/toaster";
+import "./globals.css";
 
 const revue = localFont({
   src: "../../public/fonts/revue.woff",
@@ -28,7 +26,13 @@ const revue = localFont({
   weight: "400",
 });
 
-const sourceSerif = EB_Garamond({
+const interTight = Nanum_Gothic({
+  subsets: ["latin"],
+  weight: ["400", "700", "800"],
+  variable: "--font-body",
+});
+
+const garamond = EB_Garamond({
   subsets: ["latin"],
   weight: "variable",
   variable: "--font-serif",
@@ -36,8 +40,7 @@ const sourceSerif = EB_Garamond({
 
 export const metadata: Metadata = {
   title: "Proof of Drink",
-  description:
-    "Pooling our Web3 powers to conspire against Moloch in taverns around the world.",
+  description: "Collecting Liquidity",
 };
 
 export const viewport: Viewport = {
@@ -62,8 +65,9 @@ export default function RootLayout({
       <body
         className={cn(
           revue.variable,
-          sourceSerif.variable,
-          "bg-black text-broodWhite font-serif text-3xl"
+          interTight.variable,
+          garamond.variable,
+          "bg-broodBlack text-broodWhite font-body text-3xl"
         )}
       >
         <Providers initialState={initialState}>
