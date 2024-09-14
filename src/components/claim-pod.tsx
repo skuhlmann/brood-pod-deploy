@@ -88,12 +88,13 @@ export default function ClaimPod({
 
             <Button
               variant="brood"
-              className="mt-5"
+              size="brood"
+              className="mt-8"
               disabled={!canClaim || loading}
               onClick={handleClaim}
             >
               {loading && <Beer className="mr-2 h-4 w-4 animate-spin" />}
-              {!loading && <p className="font-sans">Collect</p>}
+              {!loading && <p className="font-sans text-2xl">Collect</p>}
             </Button>
           </>
         )}

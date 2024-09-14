@@ -22,7 +22,7 @@ export default function Home() {
         <h2 className="font-sans headline-sm text-4xl text-center">
           COLLECTING LIQUIDITY
         </h2>
-        <p className="body-text-md text-center">
+        <p className="body-text-md text-center sm:w-3/4">
           Ibu yeast bottle finishing cider Biere hopping de lagering Abv Amber,
           back microbrewery primary pilsner chiller Becher additive Additive
           bitter caramel dextrin, Bittering length brewing imperial.
@@ -34,13 +34,13 @@ export default function Home() {
           What is a POD?
         </h2>
         <div className="flex flex-row flex-wrap justify-center gap-3">
-          <div className="border border-broodRed p-5 w-full sm:w-5/12">
+          <div className="border border-broodRed p-5 w-full sm:w-4/12">
             <p className="text-base text-center">
               PROOF OF DRINK: Ibu yeast bottle finishing cider Biere hopping de
               lagering Abv Amber
             </p>
           </div>
-          <div className="border border-broodRed p-5 w-full sm:w-5/12">
+          <div className="border border-broodRed p-5 w-full sm:w-4/12">
             <p className="text-base text-center">
               PROTOCOL: Microbrewery primary pilsner chiller Becher additive
               Additive bitter caramel dextrin, Bittering length brewing

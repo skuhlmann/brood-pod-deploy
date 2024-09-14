@@ -1,14 +1,6 @@
 import { connector as alias } from "alias-wallet";
 import { cookieStorage, createConfig, createStorage, http } from "wagmi";
-import {
-  sepolia,
-  optimismSepolia,
-  baseSepolia,
-  arbitrumSepolia,
-  foundry,
-  mainnet,
-  base,
-} from "wagmi/chains";
+import { baseSepolia, mainnet, base } from "wagmi/chains";
 import { getDefaultConfig } from "connectkit";
 import {
   coinbaseWallet,
@@ -16,10 +8,11 @@ import {
   metaMask,
   walletConnect,
 } from "wagmi/connectors";
+import { PROD_MODE } from "./constants";
 
 export const wagmiConfig = createConfig(
   getDefaultConfig({
-    chains: [base, baseSepolia, mainnet],
+    chains: PROD_MODE ? [base, mainnet] : [baseSepolia, mainnet],
     connectors: [
       coinbaseWallet(),
       // alias({
