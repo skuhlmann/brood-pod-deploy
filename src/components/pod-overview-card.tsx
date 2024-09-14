@@ -37,8 +37,10 @@ export function PodOverviewCard({
           <p className="text-3xl font-sans text-broodRed">{meta.name}</p>
         </div>
         <div className="w-full sm:w-1/5 flex flex-row gap-3 border border-broodGreen py-1 px-4 rounded-full">
-          <p className="text-xl font-bold">{podToken?.totalClaims}</p>
-          <p className="text-xl font-bold">{`Collector${
+          <p className="text-lg text-broodGreen font-bold">
+            {podToken?.totalClaims}
+          </p>
+          <p className="text-lg text-broodGreen font-bold">{`Collector${
             podToken?.totalClaims && Number(podToken.totalClaims) > 1 ? "s" : ""
           }`}</p>
         </div>
