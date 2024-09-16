@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Button } from "./ui/button";
-import { useAccount, useTransactionReceipt } from "wagmi";
+import { useAccount } from "wagmi";
 import ClaimInput from "./claim-input";
 import { toast } from "./ui/use-toast";
 import { CHAIN_ID, POD_CONTRACT_ADDRESS } from "@/config/constants";
@@ -12,6 +12,8 @@ import { PodBenefits } from "./pod-benefits";
 import { PodRelatedLinks } from "./pod-related-links";
 import Link from "next/link";
 
+import { useClaimStatus } from "@/hooks/useClaimStatus";
+
 export default function ClaimPod({
   tokenId,
   claimCode,
@@ -20,6 +22,8 @@ export default function ClaimPod({
   claimCode: string;
 }) {
   const { address } = useAccount();
+
+  const { claim, isFetching } = useClaimStatus({ tokenId, claimCode });
 
   const [targetAddress, setTargetAddress] = useState<string | undefined>();
   const [claimType, setClaimType] = useState<string>("ens");
@@ -72,8 +76,11 @@ export default function ClaimPod({
     setClaiming(false);
   };
 
+  const alreadyClaimed = !isFetching && claim;
   const canClaim = targetAddress || (claimType === "wallet" && address != null);
   const toAddress = claimType === "wallet" ? address : targetAddress;
+
+  if (isFetching) return null;
 
   return (
     <>
@@ -86,7 +93,7 @@ export default function ClaimPod({
           </>
         )}
 
-        {!claiming && !success && (
+        {!claiming && !success && !alreadyClaimed && (
           <>
             <ClaimInput
               targetAddress={targetAddress}
@@ -118,24 +125,29 @@ export default function ClaimPod({
           <p className="text-broodRed text-base font-bold mt-3">**{error}</p>
         )}
 
-        {success && (
-          <>
-            <p className="text-broodGreen text-base font-bold">
-              Cheers! The Proof of Drink was collected{" "}
-              {toAddress && ` to ${truncateAddress(toAddress)}`}
-            </p>
-            <div className="my-3">
-              <PodBenefits tokenId={tokenId} />
-            </div>
-            <PodRelatedLinks tokenId={tokenId} />
-            <Link
-              href={`/leaderboard/${tokenId}`}
-              className="text-base text-broodRed mt-3"
-            >
-              More about this drink
-            </Link>
-          </>
-        )}
+        {success ||
+          (alreadyClaimed && (
+            <>
+              <div className="flex flex-row gap-2 items-center">
+                <p className="text-broodGreen text-2xl font-bold">CHEERS!</p>
+                <Beer className="h-7 w-7 text-broodRed" />
+              </div>
+              <p className="text-broodGreen text-base">
+                POD has been collected{" "}
+                {toAddress && ` by ${truncateAddress(toAddress)}`}
+              </p>
+              <div className="mt-10 mb-3">
+                <PodBenefits tokenId={tokenId} />
+              </div>
+              <PodRelatedLinks tokenId={tokenId} />
+              <Link
+                href={`/leaderboard/${tokenId}`}
+                className="text-base text-broodRed mt-3"
+              >
+                More about this drink
+              </Link>
+            </>
+          ))}
       </div>
     </>
   );
