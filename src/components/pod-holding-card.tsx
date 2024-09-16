@@ -36,7 +36,7 @@ export function PodHoldingCard({
               />
             </div>
             <div className="w-full sm:w-3/5">
-              <p className="font-serif text-base font-bold">{`ID ${podToken?.id}`}</p>
+              <p className="font-body text-base font-bold">{`ID ${podToken?.id}`}</p>
               <p className="text-3xl font-sans text-broodRed">{meta.name}</p>
             </div>
           </div>

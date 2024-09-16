@@ -23,8 +23,14 @@ export default function Providers({
           customTheme={{
             "--ck-border-radius": "0px",
             "--ck-connectbutton-border-radius": "0px",
-            "--ck-accent-color": "#f25480",
-            "--ck-accent-text-color": "#ffffff",
+            "--ck-font-family": '"Nanum Gothic", sans-serif',
+            "--ck-connectbutton-font-size": "16px",
+            "--ck-connectbutton-color": "#c7cac2",
+            "--ck-connectbutton-background": "#272b23",
+            "--ck-connectbutton-hover-color": "#c7cac2",
+            "--ck-connectbutton-hover-background": "white",
+            "--ck-connectbutton-active-color": "c7cac2",
+            "--ck-connectbutton-active-background": "#272b23",
           }}
         >
           {children}

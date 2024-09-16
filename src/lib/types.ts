@@ -34,3 +34,7 @@ export type PodAccount = {
   address: string;
   balances: TokenBalance[];
 };
+export type ClaimRes = {
+  id: string;
+  code: string;
+};

@@ -33,12 +33,14 @@ export function PodOverviewCard({
           />
         </div>
         <div className="w-full sm:w-3/5">
-          <p className="font-serif text-base font-bold">{`ID ${podToken?.id}`}</p>
+          <p className="font-body text-base font-bold">{`ID ${podToken?.id}`}</p>
           <p className="text-3xl font-sans text-broodRed">{meta.name}</p>
         </div>
         <div className="w-full sm:w-1/5 flex flex-row gap-3 border border-broodGreen py-1 px-4 rounded-full">
-          <p className="text-xl font-bold">{podToken?.totalClaims}</p>
-          <p className="text-xl font-bold">{`Collector${
+          <p className="text-lg text-broodGreen font-bold">
+            {podToken?.totalClaims}
+          </p>
+          <p className="text-lg text-broodGreen font-bold">{`Collector${
             podToken?.totalClaims && Number(podToken.totalClaims) > 1 ? "s" : ""
           }`}</p>
         </div>

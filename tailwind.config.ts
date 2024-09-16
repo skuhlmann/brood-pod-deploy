@@ -22,6 +22,7 @@ const config = {
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
         serif: ["var(--font-serif)", ...fontFamily.serif],
+        body: ["var(--font-body)"],
       },
       colors: {
         broodPink: "#f25480",
@@ -29,6 +30,7 @@ const config = {
         // broodRed: "#ce1f2c",
         broodGreen: "#6deec0",
         broodWhite: "#c7cac2",
+        broodBlack: "#272b23",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
