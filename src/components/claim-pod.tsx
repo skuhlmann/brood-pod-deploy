@@ -13,6 +13,7 @@ import { PodRelatedLinks } from "./pod-related-links";
 import Link from "next/link";
 
 import { useClaimStatus } from "@/hooks/useClaimStatus";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function ClaimPod({
   tokenId,
@@ -21,6 +22,8 @@ export default function ClaimPod({
   tokenId: string;
   claimCode: string;
 }) {
+  const queryClient = useQueryClient();
+
   const { address } = useAccount();
 
   const { claim, isFetching } = useClaimStatus({ tokenId, claimCode });
@@ -55,6 +58,17 @@ export default function ClaimPod({
       console.log(data);
       if (data.success) {
         // TODO: wait for transaction to be confirmed
+
+        await queryClient.invalidateQueries({
+          queryKey: [`get-pod-${tokenId}`],
+        });
+        await queryClient.invalidateQueries({
+          queryKey: [`get-pods`],
+        });
+        await queryClient.invalidateQueries({
+          queryKey: [`get-account-${to}`],
+        });
+
         toast({
           title: "Cheers!",
           description: "You have successfully colllected your Proof of Drink",
@@ -122,7 +136,7 @@ export default function ClaimPod({
         )}
 
         {error && (
-          <p className="text-broodRed text-base font-bold mt-3">**{error}</p>
+          <p className="text-broodRed text-base font-bold mt-3">{error}</p>
         )}
 
         {success ||
