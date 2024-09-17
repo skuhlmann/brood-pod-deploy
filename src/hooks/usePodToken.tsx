@@ -5,10 +5,12 @@ import { GraphQLClient } from "graphql-request";
 
 import { GET_POD_TOKEN } from "@/lib/graph-queries";
 
-import { PodToken, TokenMeta } from "@/lib/types";
+import { Benefit, PodToken, TokenMeta } from "@/lib/types";
 import { gatewayImagePath, gatewayImagePathTemp } from "@/lib/utils";
 import { get } from "@/lib/fetch";
-import { CHAIN_ID, GRAPH_ENDPOINT } from "@/config/constants";
+import { CHAIN_ID, GRAPH_ENDPOINT, TOKEN_CONFIG } from "@/config/constants";
+
+import tempMeta from "../../tmp/brood-meta.json";
 
 export const usePodToken = ({ tokenId }: { tokenId: string }) => {
   const graphQLClient = new GraphQLClient(GRAPH_ENDPOINT[CHAIN_ID]);
@@ -23,10 +25,12 @@ export const usePodToken = ({ tokenId }: { tokenId: string }) => {
       };
 
       let meta: TokenMeta | undefined;
+      let benefits: Benefit[] | undefined;
       if (res?.podtoken) {
         const url = gatewayImagePath(res.podtoken.uri);
         if (url) {
-          meta = await get(url);
+          // meta = await get(url);
+          meta = tempMeta;
         }
       }
       if (meta) {
@@ -38,13 +42,14 @@ export const usePodToken = ({ tokenId }: { tokenId: string }) => {
         };
       }
 
-      return { ...res, meta };
+      return { ...res, meta, benefits: TOKEN_CONFIG[tokenId].benefits };
     },
   });
 
   return {
     podToken: data?.podtoken,
     meta: data?.meta,
+    benefits: data?.benefits,
     ...rest,
   };
 };
