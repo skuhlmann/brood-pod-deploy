@@ -11,13 +11,27 @@ export type TokenMeta = {
   name: string;
   description: string;
   external_url: string;
+  recipe_url?: string;
+  brewery_url?: string;
+  brewery_name?: string;
   attributes: TokenAttribute[];
+  partner_urls: PartnerItem[];
 };
 export type TokenAttribute = {
   trait_type: string;
   value: string;
   display_type?: string;
 };
+export type PartnerItem = {
+  name: string;
+  external_url: string;
+};
+export type Benefit = {
+  label: string;
+  description?: string;
+  external_url: string;
+};
+
 export type TokenBalance = {
   id: string;
   value: string;

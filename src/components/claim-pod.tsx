@@ -150,13 +150,15 @@ export default function ClaimPod({
                 POD has been collected{" "}
                 {toAddress && ` by ${truncateAddress(toAddress)}`}
               </p>
-              <div className="mt-10 mb-3">
+              <div className="mt-10 mb-3 shadow-broodGreen w-full">
                 <PodBenefits tokenId={tokenId} />
               </div>
-              <PodRelatedLinks tokenId={tokenId} />
+              <div className="mt-10 mb-3 shadow-broodGreen w-full">
+                <PodRelatedLinks tokenId={tokenId} />
+              </div>
               <Link
                 href={`/leaderboard/${tokenId}`}
-                className="text-base text-broodRed mt-3"
+                className="text-sm font-bold text-broodRed mt-5"
               >
                 More about this drink
               </Link>

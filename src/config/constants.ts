@@ -1,3 +1,4 @@
+import { Benefit } from "@/lib/types";
 import { base, baseSepolia } from "viem/chains";
 
 export const PROD_MODE =
@@ -13,19 +14,53 @@ export const GRAPH_ENDPOINT: Record<number, string> = {
   8453: `https://gateway.thegraph.com/api/${process.env.NEXT_PUBLIC_GRAPH_KEY}/subgraphs/id/56yN2ZTTbwcmZSPxDAzo5hgUMwrBfjiJ9c7DHfAwj2Dv`,
 };
 
-type TokenConfig = { name: string; tokenId: string };
+type TokenConfig = { name: string; tokenId: string; benefits?: Benefit[] };
 export const TOKEN_CONFIG: Record<string, TokenConfig> = {
   "1": {
     name: "hotdog",
     tokenId: "1",
+    benefits: [
+      {
+        label: "Free Money",
+        external_url: "https://www.raidguild.org/",
+      },
+    ],
   },
   "2": {
     name: "decent-raidguild",
     tokenId: "2",
+    benefits: [
+      {
+        label: "Vote in the Battle of the Beers Pitch Contest",
+        description: "POD holders have access to vote from 9/26 to 9/30.",
+        external_url: "https://www.raidguild.org/",
+      },
+      {
+        label: "Membership in the Post Yer Ale Warpcast Channel",
+        description: "POD holders casts will be promoted to the main feed!",
+        external_url: "https://warpcast.com/~/channel/post-yer-ale",
+      },
+      {
+        label: "Forgotten Fruit - Digital Wine Discount",
+        description:
+          "POD hodlers get a discount on the latest digi-edible from Peach Tycoon",
+        external_url: "y",
+      },
+      {
+        label: "Free Money",
+        external_url: "https://www.raidguild.org/",
+      },
+    ],
   },
   "3": {
     name: "tw",
     tokenId: "3",
+    benefits: [
+      {
+        label: "Free Money",
+        external_url: "https://www.raidguild.org/",
+      },
+    ],
   },
 };
 export const getTokenIdFromName = (name: string) => {

@@ -8,12 +8,10 @@ export function LeaderList({ tokenId }: { tokenId: string }) {
 
   if (!podToken || !podToken.balances) return null;
 
-  console.log("podToken.balances", podToken.balances);
-
   return (
     <>
       <h2 className="font-sans headline-sm text-xl text-center mt-10">
-        Drinkers
+        Top Collectors
       </h2>
 
       <div className="p-4 flex flex-row flex-wrap items-center justify-between">
