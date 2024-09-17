@@ -14,7 +14,7 @@ export function PodList() {
     <>
       <h2 className="text-center mt-5 font-sans text-broodRed">BROOD.BEER</h2>
 
-      <div className="p-4 flex flex-col gap-12">
+      <div className="p-4 flex flex-col gap-12 w-full sm:w-2/4">
         {podTokens &&
           podTokens.map((pod: PodToken) => {
             return (

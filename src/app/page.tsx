@@ -24,7 +24,7 @@ export default function Home() {
         <h2 className="font-sans headline-sm text-4xl sm:text-6xl text-center">
           COLLECT LIQUIDITY
         </h2>
-        <div className="flex flex-row justify-center gap-2 sm:gap-5 text-center text-lg sm:text-2xl sm:w-3/4">
+        <div className="flex flex-row justify-center items-center gap-2 sm:gap-5 text-center text-lg sm:text-2xl sm:w-3/4">
           <p>Enjoy a Brood Beer </p>
           <ArrowRight size={32} className="text-broodRed" />
           <p>Collect your Proof of Drink NFT</p>

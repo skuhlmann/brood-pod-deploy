@@ -19,6 +19,7 @@ export function PodRelatedLinks({ tokenId }: { tokenId: string }) {
               href={gatewayImagePath(partner.external_url)}
               target="_blank"
               className=" text-sm font-bold text-broodRed"
+              key={partner.name}
             >
               <div className="flex flex-row items-center gap-1">
                 {partner.name} <ExternalLink size={16} />
