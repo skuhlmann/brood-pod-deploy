@@ -1,6 +1,9 @@
 "use client";
 
+import { ExternalLink } from "lucide-react";
 import { usePodToken } from "@/hooks/usePodToken";
+import { getAttributeValue } from "@/lib/beer-meta-utils";
+import { gatewayImagePath } from "@/lib/utils";
 
 export function PodStats({ tokenId }: { tokenId: string }) {
   const { podToken, meta } = usePodToken({ tokenId });
@@ -8,25 +11,58 @@ export function PodStats({ tokenId }: { tokenId: string }) {
   if (!podToken || !meta) return null;
 
   return (
-    <div className="flex flex-row flex-wrap gap-10 w-full p-5 border border-broodGreen">
-      <div>
-        <p className="text-base font-bold mb-1">
-          {`${podToken?.totalClaims} Collector${
-            podToken?.totalClaims && Number(podToken.totalClaims) > 1 ? "s" : ""
-          }`}
-        </p>
+    <div className="p-3 border border-broodGreen">
+      <p className="text-lg font-bold mb-1 text-broodGreen">Beer Stats</p>
+      <div className="flex flex-row flex-wrap gap-4 w-full justify-between">
+        <div>
+          <p className="text-xs font-bold">Style</p>
+          <p className="text-base mb-1">{getAttributeValue("Style", meta)}</p>
+        </div>
+        <div>
+          <p className="text-xs font-bold">ABV/IBU</p>
+          <p className="text-base mb-1">{`${getAttributeValue(
+            "ABV",
+            meta
+          )}/${getAttributeValue("IBU", meta)}`}</p>
+        </div>
+        <div>
+          <p className="text-xs font-bold">Hops</p>
+          <p className="text-base mb-1">{getAttributeValue("Hops", meta)}</p>
+        </div>
+        <div>
+          <p className="text-xs font-bold">Adjuncts</p>
+          <p className="text-base mb-1">
+            {getAttributeValue("Adjuncts", meta)}
+          </p>
+        </div>
+        <div>
+          <p className="text-xs font-bold">Yeast</p>
+          <p className="text-base mb-1">{getAttributeValue("Yeast", meta)}</p>
+        </div>
       </div>
-      <div>
-        <p className="text-base font-bold mb-1">Brewed September 2024</p>
-      </div>
-      <div>
-        <p className="text-base font-bold mb-1">Cascade Hops</p>
-      </div>
-      <div>
-        <p className="text-base font-bold mb-1">9.5 ABV</p>
-      </div>
-      <div>
-        <p className="text-base font-bold mb-1">5.5 IBU</p>
+      <div className="flex flex-row flex-wrap gap-4 mt-5 mb-1">
+        {meta.brewery_url && (
+          <a
+            href={gatewayImagePath(meta.brewery_url)}
+            target="_blank"
+            className=" text-sm font-bold text-broodRed"
+          >
+            <div className="flex flex-row items-center gap-1">
+              {meta.brewery_name} <ExternalLink size={16} />
+            </div>
+          </a>
+        )}
+        {meta.recipe_url && (
+          <a
+            href={gatewayImagePath(meta.recipe_url)}
+            target="_blank"
+            className=" text-sm font-bold text-broodRed"
+          >
+            <div className="flex flex-row items-center gap-1">
+              Onchain Recipe <ExternalLink size={16} />
+            </div>
+          </a>
+        )}
       </div>
     </div>
   );

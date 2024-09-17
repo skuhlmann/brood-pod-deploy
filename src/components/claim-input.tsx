@@ -3,14 +3,9 @@
 import { EnsInput } from "@/components/ens-input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { AddressInput } from "./address-input";
-import { useAccount } from "wagmi";
 import { ConnectKitButton } from "connectkit";
-import { Address } from "viem";
-import { CHAIN_ID, POD_CONTRACT_ADDRESS } from "@/config/constants";
-import { toast } from "./ui/use-toast";
-import { Loader2 } from "lucide-react";
 
 export default function ClaimInput({
   targetAddress,
@@ -23,8 +18,6 @@ export default function ClaimInput({
   claimType?: string;
   setClaimType: Dispatch<SetStateAction<string>>;
 }) {
-  const { address } = useAccount();
-
   const handleChange = (value: string) => {
     setClaimType(value);
     setTargetAddress(undefined);
@@ -32,10 +25,11 @@ export default function ClaimInput({
 
   return (
     <>
+      <p className="text-xs text-broodRed">Collect to</p>
       <RadioGroup
         defaultValue={claimType}
         onValueChange={handleChange}
-        className="flex flex-row justify-center my-5 w-full"
+        className="flex flex-row justify-center mt-3 mb-1 w-full"
       >
         <div className="flex items-center space-x-2">
           <RadioGroupItem value="ens" id="r1" />
@@ -63,12 +57,7 @@ export default function ClaimInput({
             setTargetAddress={setTargetAddress}
           />
         )}
-        {claimType === "wallet" && (
-          <>
-            {address && <p className="text-xs">Connected with {address}</p>}
-            {!address && <ConnectKitButton />}
-          </>
-        )}
+        {claimType === "wallet" && <ConnectKitButton />}
       </div>
     </>
   );

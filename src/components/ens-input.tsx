@@ -21,15 +21,10 @@ export function EnsToAddressDisplay({
   ens: string;
   setTargetAddress: Dispatch<SetStateAction<string | undefined>>;
 }) {
-  console.log("ens", ens);
   const { data, error, isFetching } = useEnsAddress({
     chainId: mainnet.id,
     name: normalize(ens),
   });
-
-  console.log("isFetching", isFetching);
-  console.log("data", data);
-  console.log("error", error);
 
   useEffect(() => {
     if (data) {
@@ -76,9 +71,6 @@ export function EnsInput({
       />
       {ens && (
         <EnsToAddressDisplay ens={ens} setTargetAddress={setTargetAddress} />
-      )}
-      {targetAddress && (
-        <p className="text-xs">target address: {targetAddress}</p>
       )}
     </div>
   );
