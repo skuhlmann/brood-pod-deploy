@@ -32,29 +32,25 @@ export const TOKEN_CONFIG: Record<string, TokenConfig> = {
     tokenId: "2",
     benefits: [
       {
-        label: "A vote in the Battle of the Beers Pitch Contest",
-        description: "POD holders have access to vote from 9/26 to 9/30.",
+        label: "Voting power in the Battle of the Beers Pitch Contest",
+        description:
+          "As champions of the frothy realm, POD holders wield the power to cast their votes in the epic Battle of the Beers from September 26 to September 30. Your voice will shape the destiny of these DAOs—rise and be heard!",
         external_url: "https://www.raidguild.org/",
         link_title: "Go Vote",
       },
       {
         label: "Membership in the Post Yer Ale Warpcast Channel",
         description:
-          "Only those who bear the mark of the POD may have their casts ascend to the Main feed.",
+          "Only those who bear the sacred mark of the Proof of Drink may ascend to the revered Main feed. Within the Post Yer Ale channel, your tales of valor and ale shall flow freely, forging connections with fellow adventurers.",
         external_url: "https://warpcast.com/~/channel/post-yer-ale",
         link_title: "Post Yer Ale",
       },
       {
-        label: "Forgotten Fruit - Digital Wine Discount",
+        label: "Forgotten Fruit - Wine Discount",
         description:
-          "POD hodlers get a discount on the latest digi-edible from Peach Tycoon",
+          "POD holders gain access to the elusive Forgotten Fruit, a digital wine crafted by the legendary Peach Tycoon. Enjoy exclusive discounts on this enchanting elixir, enhancing your tavern gatherings with a touch of magic.",
         external_url: "https://forgottenfruit.xyz/",
-        link_title: "View",
-      },
-      {
-        label: "Free Money",
-        external_url: "https://www.raidguild.org/",
-        link_title: "View",
+        link_title: "View the Elixer",
       },
     ],
   },
