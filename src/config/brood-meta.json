@@ -1,0 +1,51 @@
+{
+  "description": "Crisp and dry, traditional pilsner profile with a touch of lemongrass, bergamot and blacktea from late Saphir hop additions.",
+  "external_url": "https://brood.beer/decent-raid-guild",
+  "image": "ipfs://Qmdk2Jctowxy3AvXurieCTyd8yn1Qf7oM2iUpmjs5D68c7",
+  "name": "Brood Bier",
+  "brewery_url": "https://www.urbanrest.com/",
+  "brewery_name": "Urbanrest Brewing",
+  "recipe_url": "ipfs://QmULEwLFMLtFx1c2PkEQAvqLsFJkqi8MrJZytVNE7PeoHr",
+  "partner_urls": [
+    {
+      "name": "Decent DAO",
+      "external_url": "https://decentdao.org"
+    },
+    {
+      "name": "Raid Guild",
+      "external_url": "https://www.raidguild.org"
+    }
+  ],
+  "attributes": [
+    {
+      "trait_type": "Brewery",
+      "value": "Urbanrest Brewing"
+    },
+    {
+      "trait_type": "Style",
+      "value": "Straw Blond Kveik Ale"
+    },
+    {
+      "trait_type": "Hops",
+      "value": "Saphir/Casade/Chinook/"
+    },
+    {
+      "trait_type": "Adjuncts",
+      "value": "Mint"
+    },
+    {
+      "trait_type": "Yeast",
+      "value": "Mint"
+    },
+    {
+      "display_type": "number",
+      "trait_type": "ABV",
+      "value": "5.1"
+    },
+    {
+      "display_type": "number",
+      "trait_type": "IBU",
+      "value": "50"
+    }
+  ]
+}

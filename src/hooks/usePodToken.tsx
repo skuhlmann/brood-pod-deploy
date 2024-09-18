@@ -10,7 +10,7 @@ import { gatewayImagePath, gatewayImagePathTemp } from "@/lib/utils";
 import { get } from "@/lib/fetch";
 import { CHAIN_ID, GRAPH_ENDPOINT, TOKEN_CONFIG } from "@/config/constants";
 
-import tempMeta from "../../tmp/brood-meta.json";
+import tempMeta from "../config/brood-meta.json";
 
 export const usePodToken = ({ tokenId }: { tokenId: string }) => {
   const graphQLClient = new GraphQLClient(GRAPH_ENDPOINT[CHAIN_ID]);
