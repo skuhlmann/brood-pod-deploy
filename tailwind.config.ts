@@ -26,6 +26,7 @@ const config = {
       },
       colors: {
         broodPink: "#f25480",
+        // broodRed: "#000000",
         broodRed: "#f25480",
         // broodRed: "#ce1f2c",
         broodGreen: "#6deec0",
