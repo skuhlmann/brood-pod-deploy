@@ -14,6 +14,7 @@ import Link from "next/link";
 
 import { useClaimStatus } from "@/hooks/useClaimStatus";
 import { useQueryClient } from "@tanstack/react-query";
+import Image from "next/image";
 
 export default function ClaimPod({
   tokenId,
@@ -142,14 +143,31 @@ export default function ClaimPod({
         {success ||
           (alreadyClaimed && (
             <>
-              <div className="flex flex-row gap-2 items-center">
-                <p className="text-broodGreen text-2xl font-bold">CHEERS!</p>
-                <Beer className="h-7 w-7 text-broodRed" />
+              <div className="flex flex-row gap-2 items-center justify-center">
+                <p className="text-broodGreen text-5xl font-bold font-sans headline-sm">
+                  CHEERS!
+                </p>
+                <Beer className="h-12 w-12 mb-3 text-broodRed -rotate-45" />
               </div>
               <p className="text-broodGreen text-base">
-                POD has been collected{" "}
-                {toAddress && ` by ${truncateAddress(toAddress)}`}
+                POD collected {toAddress && ` by ${truncateAddress(toAddress)}`}
               </p>
+              <Button variant="brood" className="shadow-none mt-3">
+                <a
+                  href="https://warpcast.com/~/compose?text=Cheers!&channelKey=post-yer-ale"
+                  target="_blank"
+                >
+                  <div className="flex flex-row items-center gap-1">
+                    <Image
+                      src="/farcaster-white.png"
+                      alt="farcaster"
+                      width="24"
+                      height="24"
+                    />
+                    <p>Post Yer Ale</p>
+                  </div>
+                </a>
+              </Button>
               <div className="mt-10 mb-3 shadow-broodGreen w-full">
                 <PodBenefits tokenId={tokenId} />
               </div>

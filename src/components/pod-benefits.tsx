@@ -8,7 +8,6 @@ export function PodBenefits({ tokenId }: { tokenId: string }) {
 
   if (!podToken || !meta || !benefits) return null;
 
-
   return (
     <div className="p-3 border border-broodRed">
       <p className="text-lg font-bold mb-1 text-broodRed">
@@ -27,7 +26,7 @@ export function PodBenefits({ tokenId }: { tokenId: string }) {
                   className=" text-xs font-bold text-broodRed"
                 >
                   <div className="flex flex-row items-center gap-1">
-                    More <ExternalLink size={12} />
+                    {benefit.link_title} <ExternalLink size={12} />
                   </div>
                 </a>
               </div>
