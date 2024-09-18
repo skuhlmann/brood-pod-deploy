@@ -2,14 +2,18 @@
 
 import { useState } from "react";
 import { Button } from "./ui/button";
-import { useRouter } from "next/navigation";
 import { useAccount } from "wagmi";
 import ClaimInput from "./claim-input";
 import { toast } from "./ui/use-toast";
 import { CHAIN_ID, POD_CONTRACT_ADDRESS } from "@/config/constants";
 import { Beer } from "lucide-react";
+import { truncateAddress } from "@/lib/utils";
+import { PodBenefits } from "./pod-benefits";
+import { PodRelatedLinks } from "./pod-related-links";
+import Link from "next/link";
 
-// todo: validate code
+import { useClaimStatus } from "@/hooks/useClaimStatus";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function ClaimPod({
   tokenId,
@@ -18,16 +22,21 @@ export default function ClaimPod({
   tokenId: string;
   claimCode: string;
 }) {
-  const router = useRouter();
+  const queryClient = useQueryClient();
+
   const { address } = useAccount();
+
+  const { claim, isFetching } = useClaimStatus({ tokenId, claimCode });
 
   const [targetAddress, setTargetAddress] = useState<string | undefined>();
   const [claimType, setClaimType] = useState<string>("ens");
 
-  const [loading, setLoading] = useState<boolean>(false);
+  const [claiming, setClaiming] = useState<boolean>(false);
+  const [success, setSuccess] = useState<boolean>(false);
+  const [error, setError] = useState<string | undefined>();
 
   const handleClaim = async () => {
-    setLoading(true);
+    setClaiming(true);
     const to = claimType === "wallet" ? address : targetAddress;
 
     try {
@@ -48,36 +57,57 @@ export default function ClaimPod({
       const data = await res.json();
       console.log(data);
       if (data.success) {
-        // To DO: wait for transaction to be confirmed
-        toast({
-          title: "Claimed",
-          description: "You have successfully claimed your Proof of Drink",
+        // TODO: wait for transaction to be confirmed
+
+        await queryClient.invalidateQueries({
+          queryKey: [`get-pod-${tokenId}`],
         });
-        router.push(`/pods/${to}`);
+        await queryClient.invalidateQueries({
+          queryKey: [`get-pods`],
+        });
+        await queryClient.invalidateQueries({
+          queryKey: [`get-account-${to}`],
+        });
+
+        toast({
+          title: "Cheers!",
+          description: "You have successfully colllected your Proof of Drink",
+        });
+        setSuccess(true);
+        setError(undefined);
+      }
+      if (data.error) {
+        console.log("res error", data.error);
+        setError(data.error);
+        setTargetAddress(undefined);
       }
     } catch (error) {
       console.error(error);
+      setError("Failed to Collect POD");
+      setTargetAddress(undefined);
     }
-    setLoading(false);
+
+    setClaiming(false);
   };
 
-  const canClaim = targetAddress;
+  const alreadyClaimed = !isFetching && claim;
+  const canClaim = targetAddress || (claimType === "wallet" && address != null);
+  const toAddress = claimType === "wallet" ? address : targetAddress;
 
-  if (!claimCode)
-    return (
-      <h2 className="text-center text-3xl font-bold my-5">Invalid Claim</h2>
-    );
+  if (isFetching) return null;
 
   return (
     <>
-      <div className="flex flex-col items-center w-full mt-5">
-        {loading && (
+      <div className="flex flex-col items-center w-full  mt-0 sm:mt-5">
+        {claiming && (
           <>
-            <p>Glug glug glug....</p>
-            <Beer className="mr-2 h-4 w-4 animate-spin" />
+            <p className="text-sm text-broodGreen mb-2">Collecting...</p>
+            <Beer className="mr-2 mb-3 h-24 w-24 text-broodRed animate-spin" />
+            <p className="text-lg text-broodGreen font-bold">GLUG GLUG GLUG</p>
           </>
         )}
-        {!loading && (
+
+        {!claiming && !success && !alreadyClaimed && (
           <>
             <ClaimInput
               targetAddress={targetAddress}
@@ -90,14 +120,50 @@ export default function ClaimPod({
               variant="brood"
               size="brood"
               className="mt-8"
-              disabled={!canClaim || loading}
+              disabled={!canClaim || claiming}
               onClick={handleClaim}
             >
-              {loading && <Beer className="mr-2 h-4 w-4 animate-spin" />}
-              {!loading && <p className="font-sans text-2xl">Collect</p>}
+              <div className="flex flex-col">
+                <p className="font-sans text-2xl">Collect</p>
+                {canClaim && toAddress && (
+                  <p className="text-xs text-broodRed">
+                    to {truncateAddress(toAddress)}
+                  </p>
+                )}
+              </div>
             </Button>
           </>
         )}
+
+        {error && (
+          <p className="text-broodRed text-base font-bold mt-3">{error}</p>
+        )}
+
+        {success ||
+          (alreadyClaimed && (
+            <>
+              <div className="flex flex-row gap-2 items-center">
+                <p className="text-broodGreen text-2xl font-bold">CHEERS!</p>
+                <Beer className="h-7 w-7 text-broodRed" />
+              </div>
+              <p className="text-broodGreen text-base">
+                POD has been collected{" "}
+                {toAddress && ` by ${truncateAddress(toAddress)}`}
+              </p>
+              <div className="mt-10 mb-3 shadow-broodGreen w-full">
+                <PodBenefits tokenId={tokenId} />
+              </div>
+              <div className="mt-10 mb-3 shadow-broodGreen w-full">
+                <PodRelatedLinks tokenId={tokenId} />
+              </div>
+              <Link
+                href={`/leaderboard/${tokenId}`}
+                className="text-sm font-bold text-broodRed mt-5"
+              >
+                More about this drink
+              </Link>
+            </>
+          ))}
       </div>
     </>
   );

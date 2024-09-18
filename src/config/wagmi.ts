@@ -35,6 +35,6 @@ export const wagmiConfig = createConfig(
     appName: "Proof of Drink",
     appDescription: "by Brood.beer",
     appUrl: "https://pod.brood.beer",
-    appIcon: "/brood-logo.png",
+    appIcon: "/STEINS_LOGO.png",
   })
 );

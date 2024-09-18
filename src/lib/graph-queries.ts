@@ -47,3 +47,12 @@ export const GET_POD_TOKENS_FOR_ACCOUNT = gql`
     }
   }
 `;
+
+export const GET_CLAIM_STATUS = gql`
+  query claim($id: String!) {
+    claim(id: $id) {
+      id
+      code
+    }
+  }
+`;
