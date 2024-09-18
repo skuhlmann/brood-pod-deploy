@@ -65,6 +65,7 @@ export const TOKEN_CONFIG: Record<string, TokenConfig> = {
       {
         label: "Free Money",
         external_url: "https://www.raidguild.org/",
+        link_title: "View",
       },
     ],
   },
