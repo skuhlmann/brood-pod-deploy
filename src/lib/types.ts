@@ -30,6 +30,7 @@ export type Benefit = {
   label: string;
   description?: string;
   external_url: string;
+  link_title: string;
 };
 
 export type TokenBalance = {
