@@ -7,7 +7,7 @@ const badges = ["badge-4.svg", "badge-2.svg", "badge-1.svg", "badge-3.svg"];
 export default function Home() {
   return (
     <>
-      <div className="flex flex-col items-center justify-center gap-10 mt-10 px-5 pt-5 pb-10 border-b border-broodGreen">
+      <div className="flex flex-col items-center justify-center gap-10 mt-10 px-5 pt-5 pb-10 border-b border-broodGreen lg:border-b-0">
         <div className="flex flex-row justify-space-between items-center gap-3 sm:gap-10">
           {badges.map((badgePath) => {
             return (
@@ -31,7 +31,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="flex flex-col items-center justify-center gap-5 mt-10 px-5 pt-3 pb-10 border-b border-broodGreen">
+      <div className="flex flex-col items-center justify-center gap-5 mt-10 px-5 pt-3 pb-10 border-b border-broodGreen lg:border-b-0">
         <h2 className="font-sans headline-sm text-xl text-center">
           What is a POD?
         </h2>
