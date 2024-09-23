@@ -16,6 +16,7 @@ export const merkleTrees = pgTable('merkle_trees', {
 });
 
 export const claimCodes = pgTable('claim_codes', {
+  id: serial('id').primaryKey().notNull().unique(),
   pod_id: serial('pod_id').references(() => pods.id).notNull(),
   tree_id: serial('tree_id').references(() => merkleTrees.id).notNull(),
   index: bigint('index', { mode: 'bigint' }).notNull(),
