@@ -14,8 +14,8 @@ export default function Home() {
               <img
                 className="h-16 sm:h-28 md:h-40 lg:h-56 xl:h-72"
                 src={`/${badgePath}`}
-                key={badgePath}
                 alt="badge"
+                key={badgePath}
               />
             );
           })}
