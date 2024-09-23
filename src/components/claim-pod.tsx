@@ -11,6 +11,7 @@ import { truncateAddress } from "@/lib/utils";
 import { PodBenefits } from "./pod-benefits";
 import { PodRelatedLinks } from "./pod-related-links";
 import Link from "next/link";
+import { Vote } from "lucide-react";
 
 import { useClaimStatus } from "@/hooks/useClaimStatus";
 import { useQueryClient } from "@tanstack/react-query";
@@ -152,17 +153,32 @@ export default function ClaimPod({
               <p className="text-broodGreen text-base">
                 POD collected {toAddress && ` by ${truncateAddress(toAddress)}`}
               </p>
+              <p className="text-broodGreen text-xl my-3 text-center">
+                You now have access to vote in the MCON 3 Battle of the Beers
+                pitch contest in the Decent app!
+              </p>
+              <Button variant="brood" size="brood" className="mt-3 mb-5">
+                <a
+                  href="https://app.decentdao.org/home?dao=base:0x0BcC8861d36B610f19492C8E512Ebb9E99BB7654"
+                  target="_blank"
+                >
+                  <div className="flex flex-row items-center gap-2">
+                    <Vote width="40" height="40" />
+                    <p className="text-xl">VOTE NOW!</p>
+                  </div>
+                </a>
+              </Button>
               <Button variant="brood" className="shadow-none mt-3">
                 <a
                   href="https://warpcast.com/~/compose?text=Cheers!&channelKey=post-yer-ale"
                   target="_blank"
                 >
-                  <div className="flex flex-row items-center gap-1">
+                  <div className="flex flex-row items-center justify-center gap-1">
                     <Image
                       src="/farcaster-white.png"
                       alt="farcaster"
-                      width="24"
-                      height="24"
+                      width="18"
+                      height="18"
                     />
                     <p>Post Yer Ale</p>
                   </div>

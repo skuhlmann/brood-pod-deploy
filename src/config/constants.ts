@@ -2,16 +2,18 @@ import { Benefit } from "@/lib/types";
 import { base, baseSepolia } from "viem/chains";
 
 export const PROD_MODE =
-  process.env.PROD_MODE && process.env.PROD_MODE.toLowerCase() === "true";
+  (process.env.PROD_MODE && process.env.PROD_MODE.toLowerCase() === "true") ||
+  process.env.NEXT_PUBLIC_OVERRIDE_PROD_MODE === "true";
 
-export const POD_CONTRACT_ADDRESS =
-  "0x2b530b015a096267d71ed54d797238479e817ab5";
+export const POD_CONTRACT_ADDRESS = PROD_MODE
+  ? "0xB00B5D137709a301283E225e536E85882Cfadd55"
+  : "0x2b530b015a096267d71ed54d797238479e817ab5";
 export const CHAIN_ID = PROD_MODE ? base.id : baseSepolia.id;
 
 export const GRAPH_ENDPOINT: Record<number, string> = {
   84532:
     "https://api.studio.thegraph.com/query/3450/proof-of-drink-base-sepolia/version/latest",
-  8453: `https://gateway.thegraph.com/api/${process.env.NEXT_PUBLIC_GRAPH_KEY}/subgraphs/id/56yN2ZTTbwcmZSPxDAzo5hgUMwrBfjiJ9c7DHfAwj2Dv`,
+  8453: `https://gateway.thegraph.com/api/${process.env.NEXT_PUBLIC_GRAPH_KEY}/subgraphs/id/AMkym4cycZP1u6Q6XURScG61sGBhh9mYhsXX1po4C5yS`,
 };
 
 type TokenConfig = { name: string; tokenId: string; benefits?: Benefit[] };
