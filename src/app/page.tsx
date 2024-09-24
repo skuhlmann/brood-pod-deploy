@@ -25,9 +25,9 @@ export default function Home() {
           COLLECT LIQUIDITY
         </h2>
         <div className="flex flex-row justify-center items-center gap-2 sm:gap-5 text-center text-lg sm:text-2xl sm:w-3/4">
-          <p>Enjoy a Brood Beer </p>
+          <p>Enjoy Your Liquid Refreshment</p>
           <ArrowRight size={32} className="text-broodRed" />
-          <p>Collect your Proof of Drink NFT</p>
+          <p>Collect Your Proof Of Drink NFT</p>
         </div>
       </div>
 
@@ -41,8 +41,8 @@ export default function Home() {
               The Proof of Drink App
             </p>
             <p className="text-base">
-              Visit pod.brood.beer to collect and view your NFTs and see who
-              else is collecting liquidity!
+              Visit our app to collect and view your POD NFTs and see who else
+              is collecting liquidity!
             </p>
           </div>
           <div className="border border-broodRed p-5 w-full sm:w-4/12 shadow-broodGreen text-center">
@@ -50,8 +50,8 @@ export default function Home() {
               The Proof of Drink Protocol
             </p>
             <p className="text-base ">
-              A digi-drinkable platform. Mint your offchain drinks onchain. Work
-              with{" "}
+              A digi-drinkable platform. Digital collectables tied to your
+              in-you-hand drink releases. Work with{" "}
               <a
                 href="https://brood.raidguild.org/"
                 target="_blank"
