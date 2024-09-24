@@ -16,6 +16,10 @@ export const GRAPH_ENDPOINT: Record<number, string> = {
   8453: `https://gateway.thegraph.com/api/${process.env.NEXT_PUBLIC_GRAPH_KEY}/subgraphs/id/AMkym4cycZP1u6Q6XURScG61sGBhh9mYhsXX1po4C5yS`,
 };
 
+export const EXPLORER_ENDPOINT = PROD_MODE
+  ? "https://basescan.org/tx/"
+  : "https://sepolia.basescan.org/tx/";
+
 type TokenConfig = { name: string; tokenId: string; benefits?: Benefit[] };
 export const TOKEN_CONFIG: Record<string, TokenConfig> = {
   "1": {
