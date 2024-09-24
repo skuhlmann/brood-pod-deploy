@@ -39,11 +39,11 @@ async function upload({
   }).returning()
 
   await db.insert(claimCodes).values(
-    treeData.values.map((item: any) => {
+    treeData.values.map((item: any, index: number) => {
       return {
         pod_id: pod[0].id,
         tree_id: tree[0].id,
-        index: item.treeIndex,
+        index: BigInt(index), // item.treeIndex
         code: item.value[0],
         // leaf: item[1],
       }
