@@ -39,8 +39,7 @@ export async function POST(req: NextRequest) {
   })
   if (rootOnchain !== merkleTree.root) return NextResponse.json({ error: "Merkle root does not match" }, { status: 400 })
   // Generate merkle proof for claim code
-  const index = codes.findIndex(c => c.code === claimCode)
-  const proof = merkleTree.getProof(Number(index)) as Hex[]
+  const proof = merkleTree.getProof(parseInt(code.index.toString())) as Hex[]
   // If sponsored, mint NFT to address on user's behalf
   if (sponsored) {
     try {
