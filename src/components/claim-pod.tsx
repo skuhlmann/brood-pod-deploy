@@ -5,7 +5,11 @@ import { Button } from "./ui/button";
 import { useAccount } from "wagmi";
 import ClaimInput from "./claim-input";
 import { toast } from "./ui/use-toast";
-import { CHAIN_ID, POD_CONTRACT_ADDRESS } from "@/config/constants";
+import {
+  CHAIN_ID,
+  EXPLORER_ENDPOINT,
+  POD_CONTRACT_ADDRESS,
+} from "@/config/constants";
 import { Beer } from "lucide-react";
 import { truncateAddress } from "@/lib/utils";
 import { PodBenefits } from "./pod-benefits";
@@ -36,6 +40,7 @@ export default function ClaimPod({
   const [claiming, setClaiming] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
   const [error, setError] = useState<string | undefined>();
+  const [txHash, setTxHash] = useState<string | undefined>();
 
   const handleClaim = async () => {
     setClaiming(true);
@@ -95,6 +100,7 @@ export default function ClaimPod({
   const alreadyClaimed = !isFetching && claim;
   const canClaim = targetAddress || (claimType === "wallet" && address != null);
   const toAddress = claimType === "wallet" ? address : targetAddress;
+  const showSuccess = alreadyClaimed || success;
 
   if (isFetching) return null;
 
@@ -141,63 +147,73 @@ export default function ClaimPod({
           <p className="text-broodRed text-base font-bold mt-3">{error}</p>
         )}
 
-        {success ||
-          (alreadyClaimed && (
-            <>
-              <div className="flex flex-row gap-2 items-center justify-center">
-                <p className="text-broodGreen text-5xl font-bold font-sans headline-sm">
-                  CHEERS!
-                </p>
-                <Beer className="h-12 w-12 mb-3 text-broodRed -rotate-45" />
-              </div>
-              <p className="text-broodGreen text-base">
-                POD collected {toAddress && ` by ${truncateAddress(toAddress)}`}
+        {showSuccess && (
+          <>
+            <div className="flex flex-row gap-2 items-center justify-center">
+              <p className="text-broodGreen text-5xl font-bold font-sans headline-sm">
+                CHEERS!
               </p>
-              <p className="text-broodGreen text-xl my-3 text-center">
-                You now have access to vote in the MCON 3 Battle of the Beers
-                pitch contest in the Decent app!
-              </p>
-              <Button variant="brood" size="brood" className="mt-3 mb-5">
+              <Beer className="h-12 w-12 mb-3 text-broodRed -rotate-45" />
+            </div>
+            <p className="text-broodGreen text-base">
+              POD collected {toAddress && ` by ${truncateAddress(toAddress)}`}
+            </p>
+            {txHash && (
+              <div className="mt-0">
                 <a
-                  href="https://app.decentdao.org/home?dao=base:0x0BcC8861d36B610f19492C8E512Ebb9E99BB7654"
+                  className="text-xs text-broodRed"
+                  href={`${EXPLORER_ENDPOINT}${txHash}`}
                   target="_blank"
                 >
-                  <div className="flex flex-row items-center gap-2">
-                    <Vote width="40" height="40" />
-                    <p className="text-xl">VOTE NOW!</p>
-                  </div>
+                  View TX{" "}
                 </a>
-              </Button>
-              <Button variant="brood" className="shadow-none mt-3">
-                <a
-                  href="https://warpcast.com/~/compose?text=Cheers!&channelKey=post-yer-ale"
-                  target="_blank"
-                >
-                  <div className="flex flex-row items-center justify-center gap-1">
-                    <Image
-                      src="/farcaster-white.png"
-                      alt="farcaster"
-                      width="18"
-                      height="18"
-                    />
-                    <p>Post Yer Ale</p>
-                  </div>
-                </a>
-              </Button>
-              <div className="mt-10 mb-3 shadow-broodGreen w-full">
-                <PodBenefits tokenId={tokenId} />
               </div>
-              <div className="mt-10 mb-3 shadow-broodGreen w-full">
-                <PodRelatedLinks tokenId={tokenId} />
-              </div>
-              <Link
-                href={`/leaderboard/${tokenId}`}
-                className="text-sm font-bold text-broodRed mt-5"
+            )}
+            <p className="text-broodGreen text-xl mb-3 mt-5 text-center w-full sm:w-3/4">
+              You now have access to vote in the MCON 3 Battle of the Beers
+              pitch contest in the Decent app.
+            </p>
+            <Button variant="brood" size="brood" className="mt-3 mb-5">
+              <a
+                href="https://app.decentdao.org/home?dao=base:0x0BcC8861d36B610f19492C8E512Ebb9E99BB7654"
+                target="_blank"
               >
-                More about this drink
-              </Link>
-            </>
-          ))}
+                <div className="flex flex-row items-center gap-2">
+                  <Vote width="40" height="40" />
+                  <p className="text-xl">VOTE NOW!</p>
+                </div>
+              </a>
+            </Button>
+            <Button variant="brood" className="shadow-none mt-3">
+              <a
+                href="https://warpcast.com/~/compose?text=Cheers!&channelKey=post-yer-ale"
+                target="_blank"
+              >
+                <div className="flex flex-row items-center justify-center gap-1">
+                  <Image
+                    src="/farcaster-white.png"
+                    alt="farcaster"
+                    width="18"
+                    height="18"
+                  />
+                  <p>Post Yer Ale</p>
+                </div>
+              </a>
+            </Button>
+            <div className="mt-10 mb-3 shadow-broodGreen w-full">
+              <PodBenefits tokenId={tokenId} />
+            </div>
+            <div className="mt-10 mb-3 shadow-broodGreen w-full">
+              <PodRelatedLinks tokenId={tokenId} />
+            </div>
+            <Link
+              href={`/leaderboard/${tokenId}`}
+              className="text-sm font-bold text-broodRed mt-5"
+            >
+              More about this drink
+            </Link>
+          </>
+        )}
       </div>
     </>
   );
