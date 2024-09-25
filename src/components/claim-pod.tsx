@@ -80,6 +80,7 @@ export default function ClaimPod({
           title: "Cheers!",
           description: "You have successfully colllected your Proof of Drink",
         });
+        setTxHash(data.txHash);
         setSuccess(true);
         setError(undefined);
       }
@@ -169,21 +170,31 @@ export default function ClaimPod({
                 </a>
               </div>
             )}
-            <p className="text-broodGreen text-xl mb-3 mt-5 text-center w-full sm:w-3/4">
-              You now have access to vote in the MCON 3 Battle of the Beers
-              pitch contest in the Decent app.
-            </p>
-            <Button variant="brood" size="brood" className="mt-3 mb-5">
-              <a
-                href="https://app.decentdao.org/home?dao=base:0x0BcC8861d36B610f19492C8E512Ebb9E99BB7654"
-                target="_blank"
-              >
-                <div className="flex flex-row items-center gap-2">
-                  <Vote width="40" height="40" />
-                  <p className="text-xl">VOTE NOW!</p>
-                </div>
-              </a>
-            </Button>
+            <div className="w-full sm:w-3/4 p-5 border border-broodRed my-5 text-center flex flex-col items-center">
+              <Image
+                src="/decent-logo.svg"
+                width="200"
+                height="100"
+                alt="decent"
+              />
+              <p className="text-broodRed font-bold text-xl mb-3 mt-5 text-center">
+                You will have token gated access to vote in the MCON 3 Battle of
+                the Beers pitch contest in the Decent app. Voting will begin on
+                Saturday 9/30 at 8pm ET.
+              </p>
+
+              <Button variant="brood" size="brood" className="mt-3 mb-5">
+                <a
+                  href="https://app.decentdao.org/home?dao=base:0x0BcC8861d36B610f19492C8E512Ebb9E99BB7654"
+                  target="_blank"
+                >
+                  <div className="flex flex-row items-center gap-2">
+                    <Vote width="40" height="40" />
+                    <p className="text-xl">VOTE</p>
+                  </div>
+                </a>
+              </Button>
+            </div>
             <Button variant="brood" className="shadow-none mt-3">
               <a
                 href="https://warpcast.com/~/compose?text=Cheers!&channelKey=post-yer-ale"
