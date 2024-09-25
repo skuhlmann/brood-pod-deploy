@@ -8,12 +8,19 @@ export function PodHoldingList({ address }: { address: string }) {
     address,
   });
 
-  if (!account) return null;
+  if (!account)
+    return (
+      <div className="sm:w-144">
+        <h2 className="text-center text-xl mb-10">
+          Has Not Collected any Proof of Drink NFTs
+        </h2>
+      </div>
+    );
 
   return (
     <div className="sm:w-144">
       <h2 className="text-center text-xl mb-10">
-        Holds {total} Proof of Drink NFTs
+        Collected {total} Proof of Drink NFTs
       </h2>
       {account.balances.map((balance) => {
         return (

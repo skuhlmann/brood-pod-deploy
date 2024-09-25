@@ -180,7 +180,7 @@ export default function ClaimPod({
               <p className="text-broodRed font-bold text-xl mb-1 mt-5 text-center">
                 You will have token gated access to vote in the MCON 3 Battle of
                 the Beers pitch contest in the Decent app. Voting will begin on
-                Saturday 9/30 at 8pm ET.
+                Saturday 9/28 at 8pm ET.
               </p>
 
               <p className="text-broodRed font-bold text-xl mb-3 mt-5 text-center">
