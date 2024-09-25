@@ -30,7 +30,7 @@ export const TOKEN_CONFIG: Record<string, TokenConfig> = {
     benefits: [
       {
         label: "A vote in the Battle of the Beers Pitch Contest",
-        description: "POD holders have access to vote on Saturday 9/30.",
+        description: "POD holders have access to vote on Saturday 9/28.",
         external_url:
           "https://app.decentdao.org/home?dao=base:0x0BcC8861d36B610f19492C8E512Ebb9E99BB7654",
         link_title: "Go Vote",
