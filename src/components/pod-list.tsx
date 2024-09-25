@@ -18,12 +18,9 @@ export function PodList() {
         {podTokens &&
           podTokens.map((pod: PodToken) => {
             return (
-              <div
-                key={pod.tokenId}
-                className="border border-solid border-broodGreen shadow-brood hover:bg-broodGreen"
-              >
+              <div key={pod.tokenId}>
                 <Link href={`/leaderboard/${pod.tokenId}`}>
-                  <div className="filter-none">
+                  <div className="filter-none border border-solid border-broodGreen shadow-brood hover:bg-broodGreen">
                     <PodOverviewCard tokenId={pod.tokenId} size="sm" />
                   </div>
                 </Link>
