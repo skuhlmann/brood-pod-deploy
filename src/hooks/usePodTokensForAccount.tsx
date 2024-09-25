@@ -21,7 +21,7 @@ export const usePodTokensForAccount = ({ address }: { address: string }) => {
   });
 
   const total =
-    data?.account.balances.reduce((sum: number, bal: TokenBalance) => {
+    data?.account?.balances.reduce((sum: number, bal: TokenBalance) => {
       sum += Number(bal.value);
       return sum;
     }, 0) || 0;
