@@ -25,57 +25,8 @@ export const EXPLORER_ENDPOINT = PROD_MODE
 type TokenConfig = { name: string; tokenId: string; benefits?: Benefit[] };
 export const TOKEN_CONFIG: Record<string, TokenConfig> = {
   "1": {
-    name: "hotdog",
-    tokenId: "1",
-    benefits: [
-      {
-        label: "Free Money",
-        external_url: "https://www.raidguild.org/",
-        link_title: "View",
-      },
-    ],
-  },
-  "2": {
-    name: "test",
-    tokenId: "2",
-    benefits: [
-      {
-        label: "Voting power in the Battle of the Beers Pitch Contest",
-        description:
-          "As champions of the frothy realm, POD holders wield the power to cast their votes in the epic Battle of the Beers from September 26 to September 30. Your voice will shape the destiny of these DAOs—rise and be heard!",
-        external_url: "https://www.raidguild.org/",
-        link_title: "Go Vote",
-      },
-      {
-        label: "Membership in the Post Yer Ale Warpcast Channel",
-        description:
-          "Only those who bear the sacred mark of the Proof of Drink may ascend to the revered Main feed. Within the Post Yer Ale channel, your tales of valor and ale shall flow freely, forging connections with fellow adventurers.",
-        external_url: "https://warpcast.com/~/channel/post-yer-ale",
-        link_title: "Post Yer Ale",
-      },
-      {
-        label: "Forgotten Fruit - Wine Discount",
-        description:
-          "POD holders gain access to the elusive Forgotten Fruit, a digital wine crafted by the legendary Peach Tycoon. Enjoy exclusive discounts on this enchanting elixir, enhancing your tavern gatherings with a touch of magic.",
-        external_url: "https://forgottenfruit.xyz/",
-        link_title: "View the Elixer",
-      },
-    ],
-  },
-  "3": {
-    name: "tw",
-    tokenId: "3",
-    benefits: [
-      {
-        label: "Free Money",
-        external_url: "https://www.raidguild.org/",
-        link_title: "View",
-      },
-    ],
-  },
-  "4": {
     name: "decent-raidguild",
-    tokenId: "4",
+    tokenId: "1",
     benefits: [
       {
         label: "A vote in the Battle of the Beers Pitch Contest",
