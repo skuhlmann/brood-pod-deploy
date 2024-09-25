@@ -5,6 +5,8 @@ export const PROD_MODE =
   (process.env.PROD_MODE && process.env.PROD_MODE.toLowerCase() === "true") ||
   process.env.NEXT_PUBLIC_OVERRIDE_PROD_MODE === "true";
 
+console.log("PROD_MODE", PROD_MODE);
+
 export const POD_CONTRACT_ADDRESS = PROD_MODE
   ? "0xB00B5D137709a301283E225e536E85882Cfadd55"
   : "0x2b530b015a096267d71ed54d797238479e817ab5";
