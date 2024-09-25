@@ -39,7 +39,7 @@ export function EnsToAddressDisplay({
     return null;
   }
 
-  return <p>loading...</p>;
+  return null;
 }
 
 export function EnsInput({
