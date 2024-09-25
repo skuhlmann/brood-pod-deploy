@@ -5,6 +5,8 @@ export const PROD_MODE =
   (process.env.PROD_MODE && process.env.PROD_MODE.toLowerCase() === "true") ||
   process.env.NEXT_PUBLIC_OVERRIDE_PROD_MODE === "true";
 
+console.log("PROD_MODE", PROD_MODE);
+
 export const POD_CONTRACT_ADDRESS = PROD_MODE
   ? "0xB00B5D137709a301283E225e536E85882Cfadd55"
   : "0x2b530b015a096267d71ed54d797238479e817ab5";
@@ -34,7 +36,7 @@ export const TOKEN_CONFIG: Record<string, TokenConfig> = {
     ],
   },
   "2": {
-    name: "decent-raidguild",
+    name: "test",
     tokenId: "2",
     benefits: [
       {
@@ -67,6 +69,33 @@ export const TOKEN_CONFIG: Record<string, TokenConfig> = {
       {
         label: "Free Money",
         external_url: "https://www.raidguild.org/",
+        link_title: "View",
+      },
+    ],
+  },
+  "4": {
+    name: "decent-raidguild",
+    tokenId: "4",
+    benefits: [
+      {
+        label: "A vote in the Battle of the Beers Pitch Contest",
+        description: "POD holders have access to vote on Saturday 9/30.",
+        external_url:
+          "https://app.decentdao.org/home?dao=base:0x0BcC8861d36B610f19492C8E512Ebb9E99BB7654",
+        link_title: "Go Vote",
+      },
+      {
+        label: "Membership in the Post Yer Ale Warpcast Channel",
+        description:
+          "Only those who bear the mark of the POD may have their casts ascend to the Main feed.",
+        external_url: "https://warpcast.com/~/channel/post-yer-ale",
+        link_title: "Post Yer Ale",
+      },
+      {
+        label: "Forgotten Fruit - Digital Wine Discount",
+        description:
+          "POD hodlers get a discount on the latest digi-edible from Peach Tycoon",
+        external_url: "https://forgottenfruit.xyz/",
         link_title: "View",
       },
     ],
