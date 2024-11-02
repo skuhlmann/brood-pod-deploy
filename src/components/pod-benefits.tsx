@@ -17,7 +17,9 @@ export function PodBenefits({ tokenId }: { tokenId: string }) {
         {benefits.map((benefit) => {
           return (
             <div key={benefit.label} className="flex flex-col gap-1">
-              <p className="text-lg text-broodGreen">{benefit.label}</p>
+              <p className="text-lg text-broodGreen font-bold">
+                {benefit.label}
+              </p>
               <p className="text-sm">{benefit.description}</p>
               <div>
                 <a

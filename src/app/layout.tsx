@@ -68,7 +68,7 @@ export default function RootLayout({
         <meta property="og:description" content="Collect Liquidity" />
         <meta
           property="og:image"
-          content="https://post.brood.beer/images/preview.png"
+          content="https://pod.brood.beer/preview.png"
         />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@RaidBrood" />
@@ -76,28 +76,8 @@ export default function RootLayout({
         <meta name="twitter:description" content="Collect Liquidity" />
         <meta
           name="twitter:image"
-          content="https://post.brood.beer/images/twitter.png"
+          content="https://pod.brood.beer/twitter.png"
         />
-
-        {/* 
-        <link
-          rel="apple-touch-icon"
-          sizes="180x180"
-          href="/images/apple-touch-icon.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="32x32"
-          href="/images/favicon-32x32.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="16x16"
-          href="/images/favicon-16x16.png"
-        />
-        <link rel="manifest" href="/site.webmanifest" /> */}
       </head>
       <body
         className={cn(
