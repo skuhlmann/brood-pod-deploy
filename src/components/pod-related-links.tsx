@@ -11,14 +11,14 @@ export function PodRelatedLinks({ tokenId }: { tokenId: string }) {
 
   return (
     <div className="p-3 border border-broodWhite">
-      <p className="text-lg font-bold mb-1 text-broodWhite">Partners</p>
-      <div className="flex flex-row flex-wrap gap-4 mb-1">
+      <p className="text-lg font-bold mb-3 text-broodWhite">Partners</p>
+      <div className="flex flex-row flex-wrap gap-20 mb-1">
         {meta.partner_urls.map((partner) => {
           return (
             <a
               href={gatewayImagePath(partner.external_url)}
               target="_blank"
-              className=" text-sm font-bold text-broodRed"
+              className=" text-lg font-bold text-broodRed"
               key={partner.name}
             >
               <div className="flex flex-row items-center gap-1">

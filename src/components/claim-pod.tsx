@@ -78,7 +78,7 @@ export default function ClaimPod({
 
         toast({
           title: "Cheers!",
-          description: "You have successfully colllected your Proof of Drink",
+          description: "You have successfully collected your Proof of Drink",
         });
         setTxHash(data.txHash);
         setSuccess(true);
@@ -150,76 +150,56 @@ export default function ClaimPod({
 
         {showSuccess && (
           <>
-            <div className="flex flex-row gap-2 items-center justify-center">
-              <p className="text-broodGreen text-5xl font-bold font-sans headline-sm">
-                CHEERS!
-              </p>
-              <Beer className="h-12 w-12 mb-3 text-broodRed -rotate-45" />
-            </div>
-            <p className="text-broodGreen text-base">
-              POD collected {toAddress && ` by ${truncateAddress(toAddress)}`}
-            </p>
-            {txHash && (
-              <div className="mt-0">
-                <a
-                  className="text-xs text-broodRed"
-                  href={`${EXPLORER_ENDPOINT}${txHash}`}
-                  target="_blank"
-                >
-                  View TX{" "}
-                </a>
-              </div>
-            )}
             <div className="w-full sm:w-3/4 p-5 border border-broodRed my-5 text-center flex flex-col items-center">
-              <Image
-                src="/decent-logo.svg"
-                width="200"
-                height="100"
-                alt="decent"
-              />
-              <p className="text-broodRed font-bold text-xl mb-1 mt-5 text-center">
-                You will have token gated access to vote in the MCON 3 Battle of
-                the Beers pitch contest in the Decent app. Voting will begin on
-                Saturday 9/28 at 8pm ET.
+              <div className="flex flex-row gap-2 items-center justify-center">
+                <p className="text-broodGreen text-5xl font-bold font-sans headline-sm">
+                  CHEERS!
+                </p>
+                <Beer className="h-12 w-12 mb-3 text-broodRed -rotate-45" />
+              </div>
+              <p className="text-broodGreen text-base">
+                POD collected {toAddress && ` by ${truncateAddress(toAddress)}`}
               </p>
-
-              <p className="text-broodRed font-bold text-xl mb-3 mt-5 text-center">
-                Click the link and bookmark it!
+              {txHash && (
+                <div className="mt-0">
+                  <a
+                    className="text-xs text-broodRed"
+                    href={`${EXPLORER_ENDPOINT}${txHash}`}
+                    target="_blank"
+                  >
+                    View TX{" "}
+                  </a>
+                </div>
+              )}
+              <p className="text-broodRed font-bold text-xl mb-1 mt-5 text-center">
+                You are now a part of the Brood community! You will have token
+                gated access to post to the Warpcast channel /post-yer-ale. Take
+                a pic of your beer and show it off.
               </p>
 
               <Button variant="brood" size="brood" className="mt-3 mb-5">
                 <a
-                  href="https://app.decentdao.org/home?dao=base:0x0BcC8861d36B610f19492C8E512Ebb9E99BB7654"
+                  href="https://warpcast.com/~/compose?text=Cheers!&channelKey=post-yer-ale"
                   target="_blank"
                 >
-                  <div className="flex flex-row items-center gap-2">
-                    <Vote width="40" height="40" />
-                    <p className="text-xl">VOTE</p>
+                  <div className="flex flex-row items-center justify-center gap-1">
+                    <Image
+                      src="/farcaster-white.png"
+                      alt="farcaster"
+                      width="40"
+                      height="40"
+                    />
+                    <p className="text-xl">Post Yer Ale</p>
                   </div>
                 </a>
               </Button>
             </div>
-            <Button variant="brood" className="shadow-none mt-3">
-              <a
-                href="https://warpcast.com/~/compose?text=Cheers!&channelKey=post-yer-ale"
-                target="_blank"
-              >
-                <div className="flex flex-row items-center justify-center gap-1">
-                  <Image
-                    src="/farcaster-white.png"
-                    alt="farcaster"
-                    width="18"
-                    height="18"
-                  />
-                  <p>Post Yer Ale</p>
-                </div>
-              </a>
-            </Button>
-            <div className="mt-10 mb-3 shadow-broodGreen w-full">
-              <PodBenefits tokenId={tokenId} />
-            </div>
+
             <div className="mt-10 mb-3 shadow-broodGreen w-full">
               <PodRelatedLinks tokenId={tokenId} />
+            </div>
+            <div className="mt-10 mb-3 shadow-broodGreen w-full">
+              <PodBenefits tokenId={tokenId} />
             </div>
             <Link
               href={`/leaderboard/${tokenId}`}
